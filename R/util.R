@@ -31,7 +31,7 @@ subset_gp = function (gp, i) {
     return(gp)
 }
 
-
+#' @importFrom utils getFromNamespace
 read_image = function(image) {
 
 	image[is.na(image)] = ""

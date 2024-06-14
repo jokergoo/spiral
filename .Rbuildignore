@@ -24,3 +24,9 @@ vignettes/special_data_type.Rmd
 vignettes/spiralize_git_commit.Rmd
 vignettes/spiralize_intro.Rmd
 vignettes/tree_of_life.Rmd
+vignettes/git_commit_julia.png
+vignettes/git_commit_perl.png
+vignettes/git_commit_python.png
+vignettes/git_commit_r.png
+vignettes/more_examples.Rmd
+vignettes/spiral_covid.Rmd

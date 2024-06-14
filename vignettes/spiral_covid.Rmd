@@ -1,0 +1,137 @@
+---
+title: "Spiral visualization on the COVID-19 daily increase"
+author: "Zuguang Gu (z.gu@dkfz.de)"
+date: '`r Sys.Date()`'
+output: 
+  rmarkdown::html_vignette:
+    fig_caption: true
+---
+
+```{r, echo = FALSE}
+library(knitr)
+knitr::opts_chunk$set(
+    error = FALSE,
+    tidy  = FALSE,
+    message = FALSE,
+    warning = FALSE,
+    fig.width = 7,
+    fig.height = 7,
+    fig.align = "center",
+    fig.retina = 2
+)
+knitr::knit_hooks$set(pngquant = knitr::hook_pngquant)
+knitr::opts_chunk$set(
+  message = FALSE,
+  dev = "ragg_png",
+  fig.align = "center",
+  pngquant = "--speed=10 --quality=30"
+)
+options(width = 100)
+```
+
+
+
+The COVID-19 daily increase is basically a time series data, thus it is natural to visualize it via spirals.
+As an example, we take the data for the United States and only the number of confirmed cases.
+
+
+```{r}
+library(COVID19)
+x = covid19(country = "United States", verbose = FALSE)
+x = x[, c("date", "confirmed")]
+x$date = as.Date(x$date)
+ 
+# remove the leading and ending days with no data
+na_range = range(which(!is.na(x$confirmed)))
+x = x[seq(na_range[1], na_range[2]), ]
+head(x)
+```
+
+Some days have `NA` values. We assign them with the same value as the most recent days with non-NA values.
+
+```{r}
+for(i in which(is.na(x$confirmed))) {
+    x$confirmed[[i]] = x$confirmed[[i-1]]
+}
+```
+
+Now we can calculate the daily increase.
+
+```{r}
+x$daily_increased = diff(c(0, x$confirmed))
+x$daily_increased[x$daily_increased < 0] = 0
+head(x)
+range(x$daily_increased)
+```
+
+Making spiral is straightforward. First we initialize the layout with the time ranges, then create a track
+and draw bars in it. We additionally add the month names to sectors and labels representing the corresponding years.
+
+```{r}
+library(spiralize)
+library(lubridate)
+
+spiral_initialize_by_time(xlim = range(x$date), normalize_year = TRUE)
+    
+spiral_track(height =  0.8, ylim = c(0, 1.5e6))
+spiral_bars(x$date, x$daily_increased, gp = gpar(fill = 2, col = 2))
+
+spiral_yaxis(at = c(0, 5e5, 1e6, 1.5e6), labels = c("0", "500K", "1M", "1.5M"), 
+    labels_gp = gpar(fontsize = 7))
+
+# month names
+dd = max(x$date)
+day(dd) = 15
+dd = dd + months(1:12)
+spiral_text(dd, y = 1.5, month.name[month(dd)], facing = "inside", nice_facing = TRUE)
+
+# labels of years
+for(y in c(2020, 2021, 2022, 2023)) {
+    spiral_text(paste0(y, "-01-01"), TRACK_META$ycenter, paste0(y, "-01-01"), 
+        gp = gpar(fontsize = 7))
+}
+```
+
+We can improve the plot a little bit, such as making the background in gradients and change bars to "lolipops".
+
+
+```{r}
+spiral_initialize_by_time(xlim = range(x$date), normalize_year = TRUE)
+    
+spiral_track(height =  0.8, gradient = 3, background_gp = gpar(fill = "#DDDDDD"),
+    ylim = c(0, 1.5e6))
+
+spiral_lines(x$date, x$daily_increased, type = "h", gp = gpar(col = 2))
+spiral_points(x$date, x$daily_increased, pch = 16, gp = gpar(col = 2))
+
+spiral_yaxis(at = c(0, 5e5, 1e6, 1.5e6), labels = c("0", "500K", "1M", "1.5M"), 
+    labels_gp = gpar(fontsize = 7))
+
+# month names
+dd = max(x$date)
+day(dd) = 15
+dd = dd + months(1:12)
+spiral_text(dd, y = 1.5, month.name[month(dd)], facing = "inside", nice_facing = TRUE)
+
+# labels of years
+for(y in c(2020, 2021, 2022, 2023)) {
+    spiral_text(paste0(y, "-01-01"), TRACK_META$ycenter, paste0(y, "-01-01"), 
+        gp = gpar(fontsize = 7))
+}
+```
+
+
+I have implemented it as a Shiny application. The source code for generating this app is avaiable at https://gist.github.com/jokergoo/fa39ee3dcf20cbc13a31bbe93c3498fb. You can run it by:
+
+
+```{r, eval = FALSE}
+source("https://gist.githubusercontent.com/jokergoo/fa39ee3dcf20cbc13a31bbe93c3498fb/raw/696f8331075085629a1d2b303c928c1f68249637/spiral_covid19_shiny.R")
+shinyApp(ui = ui, server = server)
+```
+
+<img src="https://user-images.githubusercontent.com/449218/154753102-d66b3588-eca1-471b-bdfe-2c147ed257f5.gif" width="100%" />
+
+
+```{r}
+sessionInfo()
+```

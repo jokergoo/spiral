@@ -1,55 +1,54 @@
 
-# == title
-# Initialize the spiral
-#
-# == param
-# -xlim Range on x-locations.
-# -start Start of the spiral, in degree. ``start`` and ``end`` should be positive and ``start`` should be smaller than ``end``.
-# -end End of the spiral, in degree.
-# -scale_by How scales on x-axis are equally interpolated? The values can be one of "angle" and "curve_length". If
-#      the value is "angle", equal angle difference corresponds to equal difference of data. In this case, in outer loops,
-#      the scales are longer than in the inner loops, although the difference on the data are the same. If
-#      the value is "curve_length", equal curve length difference corresponds to the equal difference of the data.
-# -period Under "angle" mode, the number of loops can also be controlled by argument ``period`` which controls the length
-#       of data a spiral loop corresponds to. Note in this case, argument ``end`` is ignored and the value for ``end`` is 
-#       internally recalculated.
-# -clockwise Whether the curve is in a closewise direction. If it is set to ``TRUE``, argument ``flip`` and ``reverse`` are ignored.
-# -flip How to flip the spiral? By default, the spiral starts from the origin of the coordinate and grows reverseclockwisely.
-#       The argument controls the growing direction of the spiral.
-# -reverse By default, the most inside of the spiral corresponds to the lower boundary of x-location. Setting the value to ``FALSE``
-#        can reverse the direction.
-# -polar_lines Whether draw the polar guiding lines.
-# -polar_lines_by Increment of the polar lines. Measured in degree. The value can also be a vector that defines where to add polar lines.
-# -polar_lines_gp Graphics parameters for the polar lines.
-# -padding Padding of the plotting region. The value can be a `grid::unit` of length of one to two.
-# -newpage Whether to apply `grid::grid.newpage` before making the plot?
-# -vp_param A list of parameters sent to `grid::viewport`.
-#
-# == value
-# No value is returned.
-#
-# == example
-# spiral_initialize(); spiral_track()
-# spiral_initialize(start = 180, end = 360+180); spiral_track()
-# spiral_initialize(flip = "vertical"); spiral_track()
-# spiral_initialize(flip = "horizontal"); spiral_track()
-# spiral_initialize(flip = "both"); spiral_track()
-# spiral_initialize(); spiral_track(); spiral_axis()
-# spiral_initialize(scale_by = "curve_length"); spiral_track(); spiral_axis()
-#
-# # the following example shows the difference of `scale_by` more clearly:
-# make_plot = function(scale_by) {
-#     n = 100
-#     require(circlize)
-#     col = circlize::colorRamp2(c(0, 0.5, 1), c("blue", "white", "red"))
-#     spiral_initialize(xlim = c(0, n), scale_by = scale_by)
-#     spiral_track(height = 0.9)
-# 
-#     x = runif(n)
-#     spiral_rect(1:n - 1, 0, 1:n, 1, gp = gpar(fill = col(x), col = NA))
-# }
-# make_plot("angle")
-# make_plot("curve_length")
+#' Initialize the spiral
+#'
+#' @param xlim Range on x-locations.
+#' @param start Start of the spiral, in degree. `start` and `end` should be positive and `start` should be smaller than `end`.
+#' @param end End of the spiral, in degree.
+#' @param scale_by How scales on x-axis are equally interpolated? The values can be one of "angle" and "curve_length". If
+#'      the value is "angle", equal angle difference corresponds to equal difference of data. In this case, in outer loops,
+#'      the scales are longer than in the inner loops, although the difference on the data are the same. If
+#'      the value is "curve_length", equal curve length difference corresponds to the equal difference of the data.
+#' @param period Under "angle" mode, the number of loops can also be controlled by argument `period` which controls the length
+#'       of data a spiral loop corresponds to. Note in this case, argument `end` is ignored and the value for `end` is 
+#'       internally recalculated.
+#' @param clockwise Whether the curve is in a closewise direction. If it is set to `TRUE`, argument `flip` and `reverse` are ignored.
+#' @param flip How to flip the spiral? By default, the spiral starts from the origin of the coordinate and grows reverseclockwisely.
+#'       The argument controls the growing direction of the spiral.
+#' @param reverse By default, the most inside of the spiral corresponds to the lower boundary of x-location. Setting the value to `FALSE`
+#'        can reverse the direction.
+#' @param polar_lines Whether draw the polar guiding lines.
+#' @param polar_lines_by Increment of the polar lines. Measured in degree. The value can also be a vector that defines where to add polar lines.
+#' @param polar_lines_gp Graphics parameters for the polar lines.
+#' @param padding Padding of the plotting region. The value can be a [`grid::unit()`] of length of one to two.
+#' @param newpage Whether to apply [`grid::grid.newpage()`] before making the plot?
+#' @param vp_param A list of parameters sent to [`grid::viewport()`].
+#'
+#' @return
+#' No value is returned.
+#' @export
+#' @import grid
+#' @examples
+#' spiral_initialize(); spiral_track()
+#' spiral_initialize(start = 180, end = 360+180); spiral_track()
+#' spiral_initialize(flip = "vertical"); spiral_track()
+#' spiral_initialize(flip = "horizontal"); spiral_track()
+#' spiral_initialize(flip = "both"); spiral_track()
+#' spiral_initialize(); spiral_track(); spiral_axis()
+#' spiral_initialize(scale_by = "curve_length"); spiral_track(); spiral_axis()
+#'
+#' # the following example shows the difference of `scale_by` more clearly:
+#' make_plot = function(scale_by) {
+#'     n = 100
+#'     require(circlize)
+#'     col = circlize::colorRamp2(c(0, 0.5, 1), c("blue", "white", "red"))
+#'     spiral_initialize(xlim = c(0, n), scale_by = scale_by)
+#'     spiral_track(height = 0.9)
+#' 
+#'     x = runif(n)
+#'     spiral_rect(1:n - 1, 0, 1:n, 1, gp = gpar(fill = col(x), col = NA))
+#' }
+#' make_plot("angle")
+#' make_plot("curve_length")
 spiral_initialize = function(xlim = c(0, 1), start = 360, end = 360*5, 
 	scale_by = c("angle", "curve_length"), period = NULL,
 	clockwise = FALSE, flip = c("none", "vertical", "horizontal", "both"), 
@@ -147,42 +146,41 @@ spiral_initialize = function(xlim = c(0, 1), start = 360, end = 360*5,
 	}
 }
 
-# == title
-# Initialize the spiral from time objects
-#
-# == param
-# -xlim Range of the time. The value can be time object such as ``Date``, ``POSIXlt`` or ``POSIXct``. The value can also be characters and it is converted to time objects automatically.
-# -start Start of the spiral, in degrees. By default it is automatically calculated.
-# -end End of the spiral, in degrees. By default it is automatically calculated.
-# -unit_on_axis Units on the axis.
-# -period Which period to use?
-# -normalize_year Whether to enforce one loop to represent a complete year?
-# -period_per_loop How many periods to put in a loop?
-# -polar_lines_by By default different value of ``polar_lines_by`` is set for different ``period``. E.g. 360/7 is set if ``period`` is "weeks" or 360/24 is set if ``peroid`` is set to "hours".
-#              When ``period`` is year and ``unit_on_axis`` is day, the proportion of sectors by polar lines corresponds to the proportion of month days in a year.
-# -verbose Whether to print messages?
-# -... All pass to `spiral_initialize`.
-#
-# == details
-# "start" and "end" are automatically calculated for different "unit_on_axis" and "period". For example, if "unit_on_axis" is "days" and "period" is "years", then
-# the first day of each each year is always put on theta = 0 + 2*pi*k where k is the index of loops.
-#
-# == value
-# No value is returned.
-#
-# == example
-# spiral_initialize_by_time(xlim = c("2014-01-01", "2021-06-17"))
-# spiral_track(height = 0.6)
-# spiral_axis()
-#
-# spiral_initialize_by_time(xlim = c("2021-01-01 00:00:00", "2021-01-05 00:00:00"))
-# spiral_track(height = 0.6)
-# spiral_axis()
-#
-# spiral_initialize_by_time(xlim = c("2021-01-01 00:00:00", "2021-01-01 00:10:00"),
-#     unit_on_axis = "secs", period = "mins")
-# spiral_track(height = 0.6)
-# spiral_axis()
+#' Initialize the spiral from time objects
+#'
+#' @param xlim Range of the time. The value can be time object such as [`base::Date`], [`base::POSIXlt`] or [`base::POSIXct`]. The value can also be characters and it is converted to time objects automatically.
+#' @param start Start of the spiral, in degrees. By default it is automatically calculated.
+#' @param end End of the spiral, in degrees. By default it is automatically calculated.
+#' @param unit_on_axis Units on the axis.
+#' @param period Which period to use?
+#' @param normalize_year Whether to enforce one spiral loop to represent a complete year?
+#' @param period_per_loop How many periods to put in a spiral loop?
+#' @param polar_lines_by By default different value of `polar_lines_by` is set for different `period`. E.g. 360/7 is set if `period` is "weeks" or 360/24 is set if `peroid` is set to "hours".
+#'              When `period` is year and `unit_on_axis` is day, the proportion of sectors by polar lines corresponds to the proportion of month days in a year.
+#' @param verbose Whether to print messages?
+#' @param ... All pass to [`spiral_initialize()`].
+#'
+#' @details
+#' "start" and "end" are automatically calculated for different "unit_on_axis" and "period". For example, if "unit_on_axis" is "days" and "period" is "years", then
+#' the first day of each each year is always put on `theta = 0 + 2*pi*k` where `k` is the index of spiral loops.
+#'
+#' @return
+#' No value is returned.
+#' @export
+#' @import lubridate
+#' @examples
+#' spiral_initialize_by_time(xlim = c("2014-01-01", "2021-06-17"))
+#' spiral_track(height = 0.6)
+#' spiral_axis()
+#'
+#' spiral_initialize_by_time(xlim = c("2021-01-01 00:00:00", "2021-01-05 00:00:00"))
+#' spiral_track(height = 0.6)
+#' spiral_axis()
+#'
+#' spiral_initialize_by_time(xlim = c("2021-01-01 00:00:00", "2021-01-01 00:10:00"),
+#'     unit_on_axis = "secs", period = "mins")
+#' spiral_track(height = 0.6)
+#' spiral_axis()
 spiral_initialize_by_time = function(xlim, start = NULL, end = NULL,
 	unit_on_axis = c("days", "months", "weeks", "hours", "mins", "secs"), 
 	period = c("years", "months", "weeks", "days", "hours", "mins"), 
@@ -272,7 +270,7 @@ spiral_initialize_by_time = function(xlim, start = NULL, end = NULL,
 
 	if(verbose) {
 		if(period == "years" && unit_on_axis == "days" && !normalize_year) {
-			message_wrap("When the period is year and the unit on axis is day, a loop can only represent 364 days (52 weeks) under default settings, which helps to correspond weekdays between years, but 1 or 2 days from the current year will be moved and accumulated to the next year. You can set argument `normalize_year = TRUE` to enforce every loop to represent a complete year, but note you might not be able to perfectly correspond weekdays between different years. Set argument `verbose = FALSE` to turn off this message.")
+			message_wrap("When the period is year and the unit on axis is day, a spiral loop can only represent 364 days (52 weeks) under default settings, which helps to correspond weekdays between years, but 1 or 2 days from the current year will be moved and accumulated to the next year. You can set argument `normalize_year = TRUE` to enforce every spiral loop to represent a complete year, but note you might not be able to perfectly correspond weekdays between different years. Set argument `verbose = FALSE` to turn off this message.")
 		}
 	}
 
@@ -628,25 +626,23 @@ add_time = function(t, diff, unit) {
 	}
 }
 
-# == title
-# Initialize the spiral with genomic coordinates
-#
-# == param
-# -xlim Range of the genomic coordinates.
-# -scale_by For genomic plot, axis is linearly scaled by the curve length.
-# -... All pass to `spiral_initialize`.
-#
-# == details
-# It is basically the same as `spiral_initialize`. The only difference is the axis labels are automatically
-# formated for genomic coordinates.
-#
-# == value
-# No value is returned.
-#
-# == example
-# spiral_initialize_by_gcoor(c(0, 1000000000))
-# spiral_track()
-# spiral_axis()
+#' Initialize the spiral with genomic coordinates
+#'
+#' @param xlim Range of the genomic coordinates.
+#' @param scale_by For genomic plot, axis is linearly scaled by the curve length.
+#' @param ... All pass to `spiral_initialize`.
+#'
+#' @details
+#' It is basically the same as [`spiral_initialize()`]. The only difference is the axis labels are automatically
+#' formated for genomic coordinates.
+#'
+#' @return
+#' No value is returned.
+#' @export
+#' @examples
+#' spiral_initialize_by_gcoor(c(0, 1000000000))
+#' spiral_track()
+#' spiral_axis()
 spiral_initialize_by_gcoor = function(xlim, scale_by = "curve_length", ...) {
 
 	get_character_from_x = function(x) {

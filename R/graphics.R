@@ -1,25 +1,21 @@
 
 
-
-
-# == title
-# Add points to a track
-#
-# == param
-# -x X-locations of the data points.
-# -y Y-locations of the data points.
-# -pch Point type.
-# -size Size of the points. Value should be a `grid::unit` object.
-# -gp Graphical parameters.
-# -track_index Index of the track. 
-#
-# == value
-# No value is returned.
-#
-# == example
-# spiral_initialize()
-# spiral_track()
-# spiral_points(x = runif(1000), y = runif(1000))
+#' Add points to a track
+#'
+#' @param x X-locations of the data points.
+#' @param y Y-locations of the data points.
+#' @param pch Point type.
+#' @param size Size of the points. Value should be a [`grid::unit()`] object.
+#' @param gp Graphical parameters.
+#' @param track_index Index of the track. 
+#'
+#' @return
+#' No value is returned.
+#' @export
+#' @examples
+#' spiral_initialize()
+#' spiral_track()
+#' spiral_points(x = runif(1000), y = runif(1000))
 spiral_points = function(x, y, pch = 1, size = unit(0.4, "char"), gp = gpar(), 
 	track_index = current_track_index()) {
 
@@ -35,35 +31,33 @@ spiral_points = function(x, y, pch = 1, size = unit(0.4, "char"), gp = gpar(),
 	grid.points(x, y, pch = pch, size = size, gp = gp)
 }
 
-# == title
-# Add lines to a track
-#
-# == param
-# -x X-locations of the data points.
-# -y Y-locations of the data points.
-# -type Type of the line. Value should be one of "l" and "h". When the value is "h", vertical lines (or radial lines if you consider the polar coordinates) relative to the baseline will be drawn.
-# -gp Graphical parameters.
-# -baseline Baseline used when ``type`` is ``"l"`` or ``area`` is ``TRUE``.
-# -area Whether to draw the area under the lines? Note ``gpar(fill = ...)`` controls the filled of the areas.
-# -track_index Index of the track. 
-#
-# == value
-# No value is returned.
-#
-# == example
-# x = sort(runif(1000))
-# y = runif(1000)
-# spiral_initialize()
-# spiral_track()
-# spiral_lines(x, y)
-#
-# spiral_initialize()
-# spiral_track()
-# spiral_lines(x, y, type = "h")
-#
-# spiral_initialize()
-# spiral_track()
-# spiral_lines(x, y, area = TRUE, gp = gpar(fill = "red", col = NA))
+#' Add lines to a track
+#'
+#' @param x X-locations of the data points.
+#' @param y Y-locations of the data points.
+#' @param type Type of the line. Value should be one of "l" and "h". When the value is "h", vertical lines (or radial lines if you consider the polar coordinates) relative to the baseline will be drawn.
+#' @param gp Graphical parameters.
+#' @param baseline Baseline used when `type` is `"l"` or `area` is `TRUE`.
+#' @param area Whether to draw the area under the lines? Note `gpar(fill = ...)` controls the filled colors of the areas.
+#' @param track_index Index of the track. 
+#'
+#' @return
+#' No value is returned.
+#' @export
+#' @examples
+#' x = sort(runif(1000))
+#' y = runif(1000)
+#' spiral_initialize()
+#' spiral_track()
+#' spiral_lines(x, y)
+#'
+#' spiral_initialize()
+#' spiral_track()
+#' spiral_lines(x, y, type = "h")
+#'
+#' spiral_initialize()
+#' spiral_track()
+#' spiral_lines(x, y, area = TRUE, gp = gpar(fill = "red", col = NA))
 spiral_lines = function(x, y, type = "l", gp = gpar(),
 	baseline = "bottom", area = FALSE, track_index = current_track_index()) {
 
@@ -103,52 +97,51 @@ spiral_lines = function(x, y, type = "l", gp = gpar(),
 
 }
 
-# == title
-# Add segments to a track
-#
-# == param
-# -x0 X-locations of the start points of the segments.
-# -y0 Y-locations of the start points of the segments.
-# -x1 X-locations of the end points of the segments.
-# -y1 Y-locations of the end points of the segments.
-# -gp Graphical parameters.
-# -arrow A `grid::arrow` object.
-# -track_index Index of the track. 
-# -buffer Number of segments to buffer.
-#
-# == details
-# The segments on spiral are not straight lines while are more like curves. This means a spiral segment is formed by a list of real straight segments.
-# If there are n1 spiral segments, then there will be n2 straight segments where n2 is normally much larger than n1. To speed up drawing the spiral segments,
-# the locations of the "real" segments are filled to a temporary data frame with ``buffer`` rows, when the number of rows exceeds ``buffer``, `grid::grid.segments`
-# is called to draw all the buffered segments.
-#
-# == value
-# No value is returned.
-#
-# == example
-# n = 1000
-# x0 = runif(n)
-# y0 = runif(n)
-# x1 = x0 + runif(n, min = -0.01, max = 0.01)
-# y1 = 1 - y0
-#
-# spiral_initialize(xlim = range(c(x0, x1)))
-# spiral_track()
-# spiral_segments(x0, y0, x1, y1, gp = gpar(col = circlize::rand_color(n)))
-#
-# n = 100
-# x0 = runif(n)
-# y0 = runif(n)
-# x1 = x0 + runif(n, min = -0.01, max = 0.01)
-# y1 = 1 - y0
-#
-# spiral_initialize(xlim = range(c(x0, x1)))
-# spiral_track()
-# spiral_segments(x0, y0, x1, y1, arrow = arrow(length = unit(2, "mm")),
-#     gp = gpar(col = circlize::rand_color(n, luminosity = "bright"), lwd = runif(n, 0.5, 3)))
-#
+#' Add segments to a track
+#'
+#' @param x0 X-locations of the start points of the segments.
+#' @param y0 Y-locations of the start points of the segments.
+#' @param x1 X-locations of the end points of the segments.
+#' @param y1 Y-locations of the end points of the segments.
+#' @param gp Graphical parameters.
+#' @param arrow A [`grid::arrow()`] object.
+#' @param track_index Index of the track. 
+#'
+#' @return
+#' No value is returned.
+#' @export
+#' @examples
+#' n = 1000
+#' x0 = runif(n)
+#' y0 = runif(n)
+#' x1 = x0 + runif(n, min = -0.01, max = 0.01)
+#' y1 = 1 - y0
+#'
+#' spiral_initialize(xlim = range(c(x0, x1)))
+#' spiral_track()
+#' spiral_segments(x0, y0, x1, y1, gp = gpar(col = circlize::rand_color(n)))
+#'
+#' n = 100
+#' x0 = runif(n)
+#' y0 = runif(n)
+#' x1 = x0 + runif(n, min = -0.01, max = 0.01)
+#' y1 = 1 - y0
+#'
+#' spiral_initialize(xlim = range(c(x0, x1)))
+#' spiral_track()
+#' col = circlize::rand_color(n, luminosity = "bright")
+#' spiral_segments(x0, y0, x1, y1, 
+#'     arrow = arrow(length = unit(2, "mm")), gp = gpar(col = col))
+#'
+#' # if the segments are short and you want the straight "real" segments
+#' spiral_initialize(xlim = range(c(x0, x1)))
+#' spiral_track()
+#' df0 = xy_to_cartesian(x0, y0)
+#' df1 = xy_to_cartesian(x1, y1)
+#' grid.segments(df0$x, df0$y, df1$x, df1$y, default.units = "native", 
+#'     arrow = arrow(length = unit(2, "mm")), gp = gpar(col = col))
 spiral_segments = function(x0, y0, x1, y1, gp = gpar(), arrow = NULL, 
-	track_index = current_track_index(), buffer = 10000) {
+	track_index = current_track_index()) {
 
 	validate_xy(x0, y0, x1, y1)
 
@@ -166,7 +159,7 @@ spiral_segments = function(x0, y0, x1, y1, gp = gpar(), arrow = NULL,
     	if(n > 1) {
     		for(i in 1:n) {
     			spiral_segments(x0[i], y0[i], x1[i], y1[i], gp = subset_gp(gp, i),
-    				arrow = arrow, track_index = track_index, buffer = buffer)
+    				arrow = arrow, track_index = track_index)
     		}
     		return(invisible(NULL))
     	}
@@ -192,6 +185,7 @@ spiral_segments = function(x0, y0, x1, y1, gp = gpar(), arrow = NULL,
 		gp$lty = rep(get.gpar("lty")$lty, n)
 	}
 
+	buffer = 10000
 	k = buffer
 	ir = 0
 	df_store = data.frame(x0 = rep(NA_real_, k), y0 = rep(NA_real_, k), x1 = rep(NA_real_, k), y1 = rep(NA_real_, k),
@@ -280,33 +274,30 @@ spiral_radial_segments = function(x, y, offset, gp = gpar(), track_index = curre
 	grid.segments(df$x, df$y, df2$x, df2$y, default.units = "native", gp = gp)
 }
 
-# == title
-# Add rectangles to a track
-#
-# == param
-# -xleft X-locations of the left bottom of the rectangles.
-# -ybottom Y-locations of the left bottom of the rectangles.
-# -xright X-locations of the right top of the rectangles.
-# -ytop Y-locations of the right top of the rectangles.
-# -gp Graphical parameters.
-# -track_index Index of the track. 
-#
-# == value
-# No value is returned.
-#
-# == example
-# # to simulate heatmap
-# n = 1000
-# require(circlize)
-# col = circlize::colorRamp2(c(0, 0.5, 1), c("blue", "white", "red"))
-# spiral_initialize(xlim = c(0, n))
-# spiral_track(height = 0.9)
-#
-# x1 = runif(n)
-# spiral_rect(1:n - 1, 0, 1:n, 0.5, gp = gpar(fill = col(x1), col = NA))
-# x2 = runif(n)
-# spiral_rect(1:n - 1, 0.5, 1:n, 1, gp = gpar(fill = col(x2), col = NA))
-#
+#' Add rectangles to a track
+#'
+#' @param xleft X-locations of the left bottom of the rectangles.
+#' @param ybottom Y-locations of the left bottom of the rectangles.
+#' @param xright X-locations of the right top of the rectangles.
+#' @param ytop Y-locations of the right top of the rectangles.
+#' @param gp Graphical parameters.
+#' @param track_index Index of the track. 
+#'
+#' @return
+#' No value is returned.
+#' @export
+#' @examples
+#' # to simulate heatmap
+#' n = 1000
+#' require(circlize)
+#' col = circlize::colorRamp2(c(0, 0.5, 1), c("blue", "white", "red"))
+#' spiral_initialize(xlim = c(0, n))
+#' spiral_track(height = 0.9)
+#'
+#' x1 = runif(n)
+#' spiral_rect(1:n - 1, 0, 1:n, 0.5, gp = gpar(fill = col(x1), col = NA))
+#' x2 = runif(n)
+#' spiral_rect(1:n - 1, 0.5, 1:n, 1, gp = gpar(fill = col(x2), col = NA))
 spiral_rect = function(xleft, ybottom, xright, ytop, gp = gpar(), 
 	track_index = current_track_index()) {
 
@@ -348,35 +339,33 @@ spiral_rect = function(xleft, ybottom, xright, ytop, gp = gpar(),
 	
 }
 
-# == title
-# Add bars to a track
-#
-# == param
-# -pos X-locations of the center of bars.
-# -value Height of bars. The value can be a simple numeric vector, or a matrix.
-# -baseline Baseline of the bars. Note it only works when ``value`` is a simple vector.
-# -bar_width Width of bars.
-# -gp Graphical parameters.
-# -track_index Index of the track. 
-#
-# == value
-# No value is returned.
-#
-# == example
-# \donttest{
-# x = seq(1, 1000, by = 1) - 0.5
-# y = runif(1000)
-# spiral_initialize(xlim = c(0, 1000))
-# spiral_track(height = 0.8)
-# spiral_bars(x, y)
-#
-# # a three-column matrix
-# y = matrix(runif(3*1000), ncol = 3)
-# y = y/rowSums(y)
-# spiral_initialize(xlim = c(0, 1000))
-# spiral_track(height = 0.8)
-# spiral_bars(x, y, gp = gpar(fill = 2:4, col = NA))
-# }
+#' Add bars to a track
+#'
+#' @param pos X-locations of the center of bars.
+#' @param value Height of bars. The value can be a simple numeric vector, or a matrix.
+#' @param baseline Baseline of the bars. Note it only works when `value` is a simple vector.
+#' @param bar_width Width of bars.
+#' @param gp Graphical parameters.
+#' @param track_index Index of the track. 
+#'
+#' @return
+#' No value is returned.
+#' @export
+#' @examples
+#' \donttest{
+#' x = seq(1, 1000, by = 1) - 0.5
+#' y = runif(1000)
+#' spiral_initialize(xlim = c(0, 1000))
+#' spiral_track(height = 0.8)
+#' spiral_bars(x, y)
+#'
+#' # a three-column matrix
+#' y = matrix(runif(3*1000), ncol = 3)
+#' y = y/rowSums(y)
+#' spiral_initialize(xlim = c(0, 1000))
+#' spiral_track(height = 0.8)
+#' spiral_bars(x, y, gp = gpar(fill = 2:4, col = NA))
+#' }
 spiral_bars = function(pos, value, baseline = get_track_data("ymin", track_index),
 	bar_width = min(diff(pos)), gp = gpar(), track_index = current_track_index()) {
 
@@ -415,50 +404,48 @@ spiral_bars = function(pos, value, baseline = get_track_data("ymin", track_index
 	}
 }
 
-# == title
-# Add texts to a track
-#
-# == param
-# -x X-locations of the texts.
-# -y Y-locations of the texts.
-# -text A vector of texts.
-# -offset Radial offset of the text. The value should be a `grid::unit` object.
-# -gp Graphical parameters.
-# -facing Facing of the text.
-# -letter_spacing Space between two letters. The value is a fraction of the width of current letter. It only works for curved texts.
-# -nice_facing If it is true, the facing will be automatically adjusted for texts which locate at different positions of the spiral. Note ``hjust`` and ``vjust`` will also be adjusted.
-# -just The justification of the text relative to (x, y). The same setting as in `grid::grid.text`.
-# -hjust Horizontal justification. Value should be numeric. 0 means the left of the text and 1 means the right of the text.
-# -vjust Vertical justification. Value should be numeric. 0 means the bottom of the text and 1 means the top of the text.
-# -track_index Index of the track. 
-# -... Pass to `grid::grid.text`.
-#
-# == details
-# For the curved text, it only supports one-line text.
-#
-# == value
-# No value is returned.
-#
-# == example
-# x = seq(0.1, 0.9, length = 26)
-# text = strrep(letters, 6)
-# spiral_initialize(); spiral_track()
-# spiral_text(x, 0.5, text)
-#
-# spiral_initialize(); spiral_track()
-# spiral_text(x, 0.5, text, facing = "inside")
-#
-# spiral_initialize(); spiral_track()
-# spiral_text(x, 0.5, text, facing = "outside")
-#
-# x = seq(0.1, 0.9, length = 10)
-# text = strrep(letters[1:10], 20)
-# spiral_initialize(); spiral_track()
-# spiral_text(x, 0.5, text, facing = "curved_inside")
-#
-# spiral_initialize(); spiral_track()
-# spiral_text(x, 0.5, text, facing = "curved_outside")
-#
+#' Add texts to a track
+#'
+#' @param x X-locations of the texts.
+#' @param y Y-locations of the texts.
+#' @param text A vector of texts.
+#' @param offset Radial offset of the text. The value should be a [`grid::unit()`] object.
+#' @param gp Graphical parameters.
+#' @param facing Facing of the text.
+#' @param letter_spacing Space between two letters. The value is a fraction of the width of current letter. It only works for curved texts.
+#' @param nice_facing If it is true, the facing will be automatically adjusted for texts which locate at different positions of the spiral. Note `hjust` and `vjust` will also be adjusted.
+#' @param just The justification of the text relative to (x, y). The same setting as in [`grid::grid.text()`].
+#' @param hjust Horizontal justification. Value should be numeric. 0 means the left of the text and 1 means the right of the text.
+#' @param vjust Vertical justification. Value should be numeric. 0 means the bottom of the text and 1 means the top of the text.
+#' @param track_index Index of the track. 
+#' @param ... Pass to [`grid::grid.text()`].
+#'
+#' @details
+#' For the curved text, it only supports one-line text.
+#'
+#' @return
+#' No value is returned.
+#' @export
+#' @importFrom grDevices pdf.options dev.size
+#' @examples
+#' x = seq(0.1, 0.9, length = 26)
+#' text = strrep(letters, 6)
+#' spiral_initialize(); spiral_track()
+#' spiral_text(x, 0.5, text)
+#'
+#' spiral_initialize(); spiral_track()
+#' spiral_text(x, 0.5, text, facing = "inside")
+#'
+#' spiral_initialize(); spiral_track()
+#' spiral_text(x, 0.5, text, facing = "outside")
+#'
+#' x = seq(0.1, 0.9, length = 10)
+#' text = strrep(letters[1:10], 20)
+#' spiral_initialize(); spiral_track()
+#' spiral_text(x, 0.5, text, facing = "curved_inside")
+#'
+#' spiral_initialize(); spiral_track()
+#' spiral_text(x, 0.5, text, facing = "curved_outside")
 spiral_text = function(x, y, text, offset = NULL, gp = gpar(),
 	facing = c("downward", "inside", "outside", "clockwise", "reverse_clockwise", 
 		"curved_inside", "curved_outside"),
@@ -677,21 +664,35 @@ curved_text = function(x, y, text, gp = gpar(), track_index = current_track_inde
 }
 
 
-# == title
-# Add polygons to a track
-#
-# == param
-# -x X-locations of the data points.
-# -y Y-locations of the data points.
-# -id A numeric vector used to separate locations in x and y into multiple polygons.
-# -gp Graphical parameters.
-# -track_index Index of the track. 
-#
-# == value
-# No value is returned.
-#
-# == details
-# Note the polygon must be closed, which means, the last data point should overlap to the first one.
+#' Add polygons to a track
+#'
+#' @param x X-locations of the data points.
+#' @param y Y-locations of the data points.
+#' @param id A numeric vector used to separate locations in x and y into multiple polygons.
+#' @param gp Graphical parameters.
+#' @param track_index Index of the track. 
+#'
+#' @return
+#' No value is returned.
+#' @export
+#' @examples
+#' x = seq(0, 2*pi*10, length = 1000)
+#' y = c(sin(x), cos(rev(x)))
+#' x2 = c(x, rev(x))
+#' 
+#' # in the normal cartesian coordinate system
+#' plot(NULL, xlim = range(x2), ylim = range(y))
+#' polygon(x2, y, col = "red")
+#' 
+#' # in the spiral coordinate system
+#' spiral_initialize(xlim = range(x2))
+#' spiral_track(ylim = range(y))
+#' spiral_polygon(x2, y, gp = gpar(fill = "red"))
+#' 
+#' # try a different scale
+#' spiral_initialize(xlim = range(x2), scale_by = "curve_length")
+#' spiral_track(ylim = range(y))
+#' spiral_polygon(x2, y, gp = gpar(fill = "red"))
 spiral_polygon = function(x, y, id = NULL, gp = gpar(), track_index = current_track_index()) {
 
 	validate_xy(x, y)
@@ -713,39 +714,38 @@ spiral_polygon = function(x, y, id = NULL, gp = gpar(), track_index = current_tr
 	grid.polygon(df$x, df$y, id = id, default.units = "native", gp = gp)
 }
 
-# == title
-# Draw axis along the spiral
-#
-# == param
-# -h Position of the axis. The value can be a character of "top" or "bottom".
-# -at Breaks points on axis.
-# -major_at Breaks points on axis. It is the same as ``at``.
-# -labels The corresponding labels for the break points.
-# -curved_labels Whether are the labels are curved?
-# -minor_ticks Number of minor ticks.
-# -major_ticks_length Length of the major ticks. The value should be a `grid::unit` object.
-# -minor_ticks_length Length of the minor ticks. The value should be a `grid::unit` object.
-# -ticks_gp Graphics parameters for the ticks.
-# -labels_gp Graphics parameters for the labels.
-# -track_index Index of the track. 
-#
-# == value
-# No value is returned.
-#
-# == example
-# spiral_initialize(); spiral_track()
-# spiral_axis()
-#
-# # if the spiral is intepolated by the curve length
-# spiral_initialize(scale_by = "curve_length"); spiral_track()
-# spiral_axis()
-#
-# spiral_initialize(xlim = c(0, 360*4), start = 360, end = 360*5); spiral_track()
-# spiral_axis(major_at = seq(0, 360*4, by = 30))
-#
-# spiral_initialize(xlim = c(0, 12*4), start = 360, end = 360*5); spiral_track()
-# spiral_axis(major_at = seq(0, 12*4, by = 1), labels = c("", rep(month.name, 4)))
-#
+#' Draw axis along the spiral
+#'
+#' @param h Position of the axis. The value can be a character of "top" or "bottom".
+#' @param at Breaks points on axis.
+#' @param major_at Breaks points on axis. It is the same as `at`.
+#' @param labels The corresponding labels for the break points.
+#' @param curved_labels Whether are the labels are curved?
+#' @param minor_ticks Number of minor ticks.
+#' @param major_ticks_length Length of the major ticks. The value should be a [`grid::unit()`] object.
+#' @param minor_ticks_length Length of the minor ticks. The value should be a [`grid::unit()`] object.
+#' @param ticks_gp Graphical parameters for the ticks.
+#' @param labels_gp Graphical parameters for the labels.
+#' @param track_index Index of the track. 
+#'
+#' @return
+#' No value is returned.
+#' @export
+#' @examples
+#' spiral_initialize()
+#' spiral_track()
+#' spiral_axis()
+#'
+#' # if the spiral is interpolated by the curve length
+#' spiral_initialize(scale_by = "curve_length"); spiral_track()
+#' spiral_axis()
+#'
+#' spiral_initialize(xlim = c(0, 360*4), start = 360, end = 360*5); spiral_track()
+#' spiral_axis(major_at = seq(0, 360*4, by = 30))
+#'
+#' spiral_initialize(xlim = c(0, 12*4), start = 360, end = 360*5); spiral_track()
+#' spiral_axis(major_at = seq(0, 12*4, by = 1), labels = c("", rep(month.name, 4)))
+#'
 spiral_axis = function(h = c("top", "bottom"), at = NULL, major_at = at,
 	labels = TRUE, curved_labels = FALSE, minor_ticks = 4, 
 	major_ticks_length = unit(4, "bigpts"), minor_ticks_length = unit(2, "bigpts"),
@@ -866,39 +866,31 @@ spiral_axis = function(h = c("top", "bottom"), at = NULL, major_at = at,
 	}
 }
 
-# == title
-# Draw axis along the spiral
-#
-# == param
-# -... All pass to `spiral_axis`.
-#
-# == value
-# No value is returned.
-#
+#' @param ... All pass to `spiral_axis()`.
+#' @rdname spiral_axis
+#' @export
 spiral_xaxis = function(...) {
 	spiral_axis(...)
 }
 
-# == title
-# Draw y-axis
-#
-# == param
-# -side On which side of the spiral the y-axis is drawn? "start" means the inside of the spiral and "end" means the outside of the spiral.
-#  Note if ``reverse`` was set to ``TRUE``, then "start" corresponds to the most outside of the spiral.
-# -at Break points.
-# -labels Corresponding labels for the break points.
-# -ticks_length Length of the tick. Value should be a `grid::unit` object.
-# -ticks_gp Graphics parameters for ticks.
-# -labels_gp Graphics parameters for labels.
-# -track_index Index of the track.
-#
-# == value
-# No value is returned.
-#
-# == example
-# spiral_initialize(); spiral_track(height = 0.8)
-# spiral_yaxis("start")
-# spiral_yaxis("end", at = c(0, 0.25, 0.5, 0.75, 1), labels = letters[1:5])
+#' Draw y-axis
+#'
+#' @param side On which side of the spiral the y-axis is drawn? "start" means the inside of the spiral and "end" means the outside of the spiral.
+#'    Note if `reverse` was set to `TRUE` in [`spiral_initialize()`], then "start" corresponds to the outside of the spiral.
+#' @param at Break points.
+#' @param labels Corresponding labels for the break points.
+#' @param ticks_length Length of the tick. Value should be a [`grid::unit()`] object.
+#' @param ticks_gp Graphical parameters for ticks.
+#' @param labels_gp Graphical parameters for labels.
+#' @param track_index Index of the track.
+#'
+#' @return
+#' No value is returned.
+#' @export
+#' @examples
+#' spiral_initialize(); spiral_track(height = 0.8)
+#' spiral_yaxis("start")
+#' spiral_yaxis("end", at = c(0, 0.25, 0.5, 0.75, 1), labels = letters[1:5])
 spiral_yaxis = function(side = c("both", "start", "end"), at = NULL, labels = TRUE, 
 	ticks_length = unit(2, "bigpts"), 
 	ticks_gp = gpar(), labels_gp = gpar(fontsize = 6), 
@@ -1003,42 +995,50 @@ spiral_yaxis = function(side = c("both", "start", "end"), at = NULL, labels = TR
 	}
 }
 
-# == title
-# Draw horizon chart along the spiral
-#
-# == param
-# -x X-locations of the data points.
-# -y Y-locations of the data points.
-# -y_max Maximal absolute value on y-axis.
-# -n_slices Number of slices.
-# -slice_size Size of the slices. The final number of sizes is ``ceiling(max(abs(y))/slice_size)``.
-# -pos_fill Colors for positive values. 
-# -neg_fill Colors for negative values.
-# -use_bars Whether to use bars?
-# -bar_width Width of bars.
-# -negative_from_top Should negative distribution be drawn from the top?
-# -track_index Index of the track. 
-#
-# == details
-# Since the track height is very small in the spiral, horizon chart visualization is a efficient way to visualize
-# distribution-like graphics.
-#
-# == value
-# A list of the following objects:
-# 
-# - a color mapping function for colors.
-# - a vector of intervals that split the data.
-#
-# == example
-# \donttest{
-# df = readRDS(system.file("extdata", "global_temperature.rds", package = "spiralize"))
-# df = df[df$Source == "GCAG", ]
-# spiral_initialize_by_time(xlim = range(df$Date), unit_on_axis = "months", period = "year",
-#     period_per_loop = 20, polar_lines_by = 360/20, 
-#     vp_param = list(x = unit(0, "npc"), just = "left"))
-# spiral_track()
-# spiral_horizon(df$Date, df$Mean, use_bar = TRUE)
-# }
+#' Draw horizon chart along the spiral
+#'
+#' @param x X-locations of the data points.
+#' @param y Y-locations of the data points.
+#' @param y_max Maximal absolute value on y-axis.
+#' @param n_slices Number of slices.
+#' @param slice_size Size of the slices. The final number of sizes is `ceiling(max(abs(y))/slice_size)`.
+#' @param pos_fill Colors for positive values. 
+#' @param neg_fill Colors for negative values.
+#' @param use_bars Whether to use bars?
+#' @param bar_width Width of bars.
+#' @param negative_from_top Should negative distribution be drawn from the top?
+#' @param track_index Index of the track. 
+#'
+#' @details
+#' Since the track height is very small in the spiral, horizon chart visualization is an efficient way to visualize
+#' distribution-like graphics.
+#'
+#' @return
+#' A list of the following objects:
+#' 
+#' - a color mapping function for colors.
+#' - a vector of intervals that split the data.
+#' 
+#' @seealso [`horizon_legend()`] for generating the legend.
+#' @export
+#' @examples
+#' \donttest{
+#' df = readRDS(system.file("extdata", "global_temperature.rds", package = "spiralize"))
+#' df = df[df$Source == "GCAG", ]
+#' spiral_initialize_by_time(xlim = range(df$Date), unit_on_axis = "months", period = "year",
+#'     period_per_loop = 20, polar_lines_by = 360/20)
+#' spiral_track()
+#' spiral_horizon(df$Date, df$Mean, use_bar = TRUE)
+#' 
+#' # with legend
+#' spiral_initialize_by_time(xlim = range(df$Date), unit_on_axis = "months", period = "year",
+#'     period_per_loop = 20, polar_lines_by = 360/20, 
+#'     vp_param = list(x = unit(0, "npc"), just = "left"))
+#' spiral_track()
+#' lt = spiral_horizon(df$Date, df$Mean, use_bar = TRUE)
+#' lgd = horizon_legend(lt, title = "Temperature difference")
+#' draw(lgd, x = unit(1, "npc") + unit(2, "mm"), just = "left")
+#' }
 spiral_horizon = function(x, y, y_max = max(abs(y)), n_slices = 4, slice_size, 
 	pos_fill = "#D73027", neg_fill = "#313695",
 	use_bars = FALSE, bar_width = min(diff(x)),
@@ -1212,19 +1212,19 @@ split_vec_by_NA = function(x) {
 	split(x[not.na], idx[not.na])
 }
 
-# == title
-# Legend for the horizon chart
-#
-# == param
-# -lt The object returned by `spiral_horizon`.
-# -title Title of the legend.
-# -format Number format of the legend labels.
-# -template Template to construct the labels.
-# -... Pass to `ComplexHeatmap::Legend`.
-#
-# == value
-# A `ComplexHeatmap::Legend` object.
-#
+#' Legend for the horizon chart
+#'
+#' @param lt The object returned by [`spiral_horizon()`].
+#' @param title Title of the legend.
+#' @param format Number format of the legend labels.
+#' @param template Template to construct the labels.
+#' @param ... Pass to [`ComplexHeatmap::Legend()`].
+#'
+#' @return
+#' A [`ComplexHeatmap::Legend`] object.
+#' @export
+#' @examples
+#' # see examples in `spiral_horizon()`.
 horizon_legend = function(lt, title = "", format = "%.2f",
 	template = "[{x1}, {x2}]", ...) {
 
@@ -1257,44 +1257,42 @@ horizon_legend = function(lt, title = "", format = "%.2f",
 	ComplexHeatmap::Legend(title = title, at = at, labels = labels, legend_gp = gpar(fill = col_fun(at)), ...)
 }
 
-# == title
-# Add image to a track
-#
-# == param
-# -x X-locations of the center of the image.
-# -y Y-locations of the center of the image.
-# -image A vector of file paths of images. The format of the image is inferred from the suffix name of the image file.
-#       NA value or empty string means no image to drawn. Supported formats are png/svg/pdf/eps/jpeg/jpg/tiff.
-# -width Width of the image. See Details. 
-# -height Height of the image. See Details. 
-# -facing Facing of the image.
-# -nice_facing Whether to adjust the facing.
-# -scaling Scaling factor when ``facing`` is set to ``"curved_inside"`` or ``"curved_outside"``.
-# -track_index Index of the track. 
-#
-# == details
-# When ``facing`` is set to one of ``"downward"``, ``"inside"`` and ``"outside"``, both of ``width`` and ``height`` should be `grid::unit` objects. 
-# It is suggested to only set one of ``width`` and ``height``, the other dimension will be automatically calculated from the aspect ratio of the image.
-#
-# When ``facing`` is set to one of ``"curved_inside"`` and ``"curved_outside"``, the value can also be numeric, which are the values
-# measured in the data coordinates. Note when the segment in the spiral that corresponds to ``width`` is very long, drawing the curved
-# image will be very slow because each pixel is actually treated as a single rectangle.
-#
-# == value
-# No value is returned.
-#
-# == example
-# image = system.file("extdata", "Rlogo.png", package = "circlize")
-# x = seq(0.1, 0.9, length = 10)
-#
-# spiral_initialize()
-# spiral_track()
-# spiral_raster(x, 0.5, image)
-#
-# spiral_initialize()
-# spiral_track()
-# spiral_raster(x, 0.5, image, facing = "inside")
-#
+#' Add image to a track
+#'
+#' @param x X-locations of the center of the image.
+#' @param y Y-locations of the center of the image.
+#' @param image A vector of file paths of images. The format of the image is inferred from the suffix name of the image file.
+#'       NA value or empty string means no image to drawn. Supported formats are png/svg/pdf/eps/jpeg/jpg/tiff.
+#' @param width Width of the image. See Details. 
+#' @param height Height of the image. See Details. 
+#' @param facing Facing of the image.
+#' @param nice_facing Whether to adjust the facing.
+#' @param scaling Scaling factor when ``facing`` is set to `"curved_inside"` or `"curved_outside"`.
+#' @param track_index Index of the track. 
+#'
+#' @details
+#' When `facing` is set to one of `"downward"`, `"inside"` and `"outside"`, both of `width` and `height` should be [`grid::unit()`] objects. 
+#' It is suggested to only set one of `width` and `height`, the other dimension will be automatically calculated from the aspect ratio of the image.
+#'
+#' When `facing` is set to one of `"curved_inside"` and `"curved_outside"`, the value can also be numeric, which are the values
+#' measured in the data coordinates. Note when the segment in the spiral that corresponds to `width` is very long, drawing the curved
+#' image will be very slow because each pixel is actually treated as a single rectangle.
+#'
+#' @return
+#' No value is returned.
+#' @export
+#' @examples
+#' image = system.file("extdata", "Rlogo.png", package = "circlize")
+#' x = seq(0.1, 0.9, length = 10)
+#'
+#' spiral_initialize()
+#' spiral_track()
+#' spiral_raster(x, 0.5, image)
+#'
+#' spiral_initialize()
+#' spiral_track()
+#' spiral_raster(x, 0.5, image, facing = "inside")
+#'
 spiral_raster = function(x, y, image, width = NULL, height = NULL, 
 	facing = c("downward", "inside", "outside", "curved_inside", "curved_outside"), 
 	nice_facing = FALSE, scaling = 1, track_index = current_track_index()) {
@@ -1402,7 +1400,7 @@ spiral_raster = function(x, y, image, width = NULL, height = NULL,
 	
 }
 
-
+#' @importFrom grDevices as.raster png dev.off dev.size
 spiral_raster_curved = function(x, y, image, width = NULL, height = NULL, 
 	facing = c("curved_inside", "curved_outside"), 
 	nice_facing = FALSE, scaling = 1, track_index = current_track_index()) {
@@ -1518,33 +1516,31 @@ spiral_raster_curved = function(x, y, image, width = NULL, height = NULL,
 	}
 }
 
-# == title
-# Draw arrows in the spiral direction
-#
-# == param
-# -x1 Start of the arrow.
-# -x2 End of the arrow.
-# -y Y-location of the arrow.
-# -width Width of the arrow. The value can be the one measured in the data coordinates or a `grid::unit` object.
-# -arrow_head_length Length of the arrow head.
-# -arrow_head_width Width of the arrow head.
-# -arrow_position Position of the arrow. If the value is ``"end"``, then the arrow head is drawn at ``x = x2``. If the value
-#    is ``"start"``, then the arrow head is drawn at ``x = x1``. 
-# -tail The shape of the arrow tail.
-# -gp Graphics parameters.
-# -track_index Index of the track. 
-#
-# == seealso
-# Note `spiral_segments` also supports drawing line-based arrows.
-#
-# == value
-# No value is returned.
-#
-# == example
-# spiral_initialize()
-# spiral_track()
-# spiral_arrow(0.3, 0.6, gp = gpar(fill = "red"))
-# spiral_arrow(0.8, 0.9, gp = gpar(fill = "blue"), tail = "point", arrow_position = "start")
+#' Draw arrows in the spiral direction
+#'
+#' @param x1 Start of the arrow.
+#' @param x2 End of the arrow.
+#' @param y Y-location of the arrow.
+#' @param width Width of the arrow. The value can be the one measured in the data coordinates or a [`grid::unit()`] object.
+#' @param arrow_head_length Length of the arrow head.
+#' @param arrow_head_width Width of the arrow head.
+#' @param arrow_position Position of the arrow. If the value is `"end"`, then the arrow head is drawn at `x = x2`. If the value
+#'    is `"start"`, then the arrow head is drawn at `x = x1`. 
+#' @param tail The shape of the arrow tail.
+#' @param gp Graphical parameters.
+#' @param track_index Index of the track. 
+#'
+#' @seealso
+#' Note [`spiral_segments()`] also supports drawing line-based arrows.
+#'
+#' @return
+#' No value is returned.
+#' @export
+#' @examples
+#' spiral_initialize()
+#' spiral_track()
+#' spiral_arrow(0.3, 0.6, gp = gpar(fill = "red"))
+#' spiral_arrow(0.8, 0.9, gp = gpar(fill = "blue"), tail = "point", arrow_position = "start")
 spiral_arrow = function(
 	x1, x2, 
 	y = get_track_data("ycenter", track_index), 
@@ -1630,30 +1626,28 @@ spiral_arrow = function(
 }
 
 
-# == title
-# Highlight a section of the spiral
-#
-# == param
-# -x1 Start location of the highlighted section.
-# -x2 End location of the highlighted section.
-# -type Type of the highlighting. "rect" means drawing transparent rectangles covering the whole track.
-#      "line" means drawing annotation lines on top of the track or at the bottom of it.
-# -padding When the highlight type is "rect", it controls the padding of the highlighted region. The value should be a `grid::unit` object
-#     or a numeric value which is the fraction of the length of the highlighted section. The length can be one or two.
-#      Note it only extends in the radial direction.
-# -line_side If the highlight type is "line", it controls which side of the track to draw the lines.
-# -line_width Width of the annotation line. Value should be a `grid::unit` object.
-# -gp Graphics parameters.
-# -track_index Index of the track.
-#
-# == value
-# No value is returned.
-#
-# == example
-# spiral_initialize(); spiral_track()
-# spiral_highlight(0.4, 0.6)
-# spiral_highlight(0.1, 0.2, type = "line", gp = gpar(col = "blue"))
-# spiral_highlight(0.7, 0.8, type = "line", line_side = "outside")
+#' Highlight a section of the spiral
+#'
+#' @param x1 Start location of the highlighted section.
+#' @param x2 End location of the highlighted section.
+#' @param type Type of the highlighting. "rect" means drawing transparent rectangles covering the whole track.
+#'      "line" means drawing annotation lines on top of the track or at the bottom of it.
+#' @param padding When the highlight type is "rect", it controls the padding of the highlighted region. The value should be a [`grid::unit()`] object
+#'     or a numeric value which is the fraction of the length of the highlighted section. The length can be one or two.
+#'      Note it only extends in the radial direction.
+#' @param line_side If the highlight type is "line", it controls which side of the track to draw the lines.
+#' @param line_width Width of the annotation line. Value should be a [`grid::unit()`] object.
+#' @param gp Graphical parameters.
+#' @param track_index Index of the track.
+#'
+#' @return
+#' No value is returned.
+#' @export
+#' @examples
+#' spiral_initialize(); spiral_track()
+#' spiral_highlight(0.4, 0.6)
+#' spiral_highlight(0.1, 0.2, type = "line", gp = gpar(col = "blue"))
+#' spiral_highlight(0.7, 0.8, type = "line", line_side = "outside")
 spiral_highlight = function(x1, x2, type = c("rect", "line"), padding = unit(1, "mm"),
 	line_side = c("inside", "outside"), line_width = unit(1, "pt"),
 	gp = gpar(fill = "red"), track_index = current_track_index()) {
@@ -1739,31 +1733,29 @@ spiral_highlight = function(x1, x2, type = c("rect", "line"), padding = unit(1, 
 	}
 }
 
-# == title
-# Highlight a sector
-#
-# == param
-# -x1 Start location which determines the start of the sector.
-# -x2 End location which determines the end of the sector. Note x2 should be larger than x1 and the angular difference between x1 and x2 should be smaller than a circle.
-# -x3 Start location which determines the start of the sector on the upper border.
-# -x4 End location which determines the end of the sector on the upper border.
-# -padding It controls the radial extension of the sector. The value should be a `grid::unit` object with length one or two.
-# -gp Graphics parameters.
-#
-# == details
-# x1 and x2 determine the position of the highlighted sector. If x3 and x4 are not set, the sector extends until the most outside loop.
-# If x3 and x4 are set, they determine the outer border of the sector. In this case, if x3 and x4 are set, x3 should be larger than x2.
-#
-# == value
-# No value is returned.
-#
-# == example
-# spiral_initialize(xlim = c(0, 360*4), start = 360, end = 360*5)
-# spiral_track()
-# spiral_axis()
-# spiral_highlight_by_sector(36, 72)
-# spiral_highlight_by_sector(648, 684)
-# spiral_highlight_by_sector(216, 252, 936, 972, gp = gpar(fill = "blue"))
+#' Highlight a sector
+#'
+#' @param x1 Start location which determines the start of the sector.
+#' @param x2 End location which determines the end of the sector. Note `x2` should be larger than x1 and the angular difference between `x1` and `x2` should be smaller than a circle.
+#' @param x3 Start location which determines the start of the sector on the upper border.
+#' @param x4 End location which determines the end of the sector on the upper border.
+#' @param padding It controls the radial extension of the sector. The value should be a [`grid::unit()`] object with length one or two.
+#' @param gp Graphical parameters.
+#'
+#' @details
+#' `x1` and `x2` determine the position of the highlighted sector. If `x3` and `x4` are not set, the sector extends until the most outside loop.
+#' If `x3` and `x4` are set, they determine the outer border of the sector. In this case, if `x3` and `x4` are set, `x3` should be larger than `x2`.
+#'
+#' @return
+#' No value is returned.
+#' @export
+#' @examples
+#' spiral_initialize(xlim = c(0, 360*4), start = 360, end = 360*5)
+#' spiral_track()
+#' spiral_axis()
+#' spiral_highlight_by_sector(36, 72)
+#' spiral_highlight_by_sector(648, 684)
+#' spiral_highlight_by_sector(216, 252, 936, 972, gp = gpar(fill = "blue"))
 spiral_highlight_by_sector = function(x1, x2, x3 = NULL, x4 = NULL, padding = unit(1, "mm"),
 	gp = gpar(fill = "red")) {
 
@@ -1889,7 +1881,7 @@ spiral_highlight_by_sector = function(x1, x2, x3 = NULL, x4 = NULL, padding = un
 	grid.polygon(c(df$x, 0), c(df$y, 0), gp = gp, default.units = "native")
 }
 
-
+#' @importFrom grDevices col2rgb rgb
 add_transparency = function (col, transparency = 0){
 	col1 = col2rgb(col, alpha = TRUE)
 	col1[4, col1[4, ] == 255] = round((1 - transparency)*255)

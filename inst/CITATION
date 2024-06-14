@@ -6,5 +6,6 @@ bibentry(
               as.person("Daniel Huebschmann")),
    journal = "Bioinformatics",
    year = 2021,
-   textVersion = "Gu, Z. (2021) spiralize: an R package for Visualizing Data on Spirals. Bioinformatics."
+   textVersion = "Gu, Z. (2021) spiralize: an R package for Visualizing Data on Spirals. Bioinformatics.",
+   doi = "10.1093/bioinformatics/btab778"
 )

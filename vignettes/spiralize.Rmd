@@ -10,5 +10,5 @@ vignette: >
 ---
 
 
-Please go to the package's website: https://jokergoo.github.io/spiralize.
+Please go to the package's website: https://jokergoo.github.io/spiralize/.
 

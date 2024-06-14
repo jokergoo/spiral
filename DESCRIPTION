@@ -1,8 +1,8 @@
 Package: spiralize
 Type: Package
 Title: Visualize Data on Spirals
-Version: 1.0.9
-Date: 2024-02-26
+Version: 1.1.0
+Date: 2024-06-11
 Authors@R: person("Zuguang", "Gu", email = "z.gu@dkfz.de", role = c("aut", "cre"),
                   comment = c('ORCID'="0000-0002-7395-8709"))
 Depends: R (>= 4.0.0), grid
@@ -22,12 +22,12 @@ Suggests: ComplexHeatmap,
           jpeg,
           png,
           tiff,
-          ape,
           cranlogs,
           cowplot,
           dendextend,
           bezier,
-          magick
+          magick,
+          ape
 Description: It visualizes data along an Archimedean spiral <https://en.wikipedia.org/wiki/Archimedean_spiral>, 
     makes so-called spiral graph or spiral chart. 
     It has two major advantages for visualization: 1. It is able to visualize data with very long axis with high 
@@ -36,6 +36,6 @@ VignetteBuilder: knitr
 URL: https://github.com/jokergoo/spiralize, https://jokergoo.github.io/spiralize
 License: MIT + file LICENSE
 NeedsCompilation: no
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

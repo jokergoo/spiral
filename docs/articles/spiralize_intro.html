@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Visualize Data on Spirals • spiralize</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -33,12 +33,15 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spiralize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
+<li>
+  <a href="../articles/examples.html">Examples</a>
+</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
@@ -55,18 +58,6 @@
     </li>
     <li>
       <a href="../articles/annotate.html">Annotate the Plot</a>
-    </li>
-    <li>
-      <a href="../articles/examples.html">Real World Examples</a>
-    </li>
-    <li>
-      <a href="../articles/tree_of_life.html">Visualize tree of life</a>
-    </li>
-    <li class="divider">
-    </li>
-<li class="dropdown-header">More applications</li>
-    <li>
-      <a href="../articles/spiralize_git_commit.html">Spiral visualization on git commits of a git repo</a>
     </li>
   </ul>
 </li>
@@ -97,7 +88,7 @@
       <h1 data-toc-skip>Visualize Data on Spirals</h1>
                         <h4 data-toc-skip class="author">Zuguang Gu (<a href="mailto:z.gu@dkfz.de" class="email">z.gu@dkfz.de</a>)</h4>
             
-            <h4 data-toc-skip class="date">2024-02-27</h4>
+            <h4 data-toc-skip class="date">2024-06-14</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jokergoo/spiralize/blob/HEAD/vignettes/spiralize_intro.Rmd" class="external-link"><code>vignettes/spiralize_intro.Rmd</code></a></small>
       <div class="hidden name"><code>spiralize_intro.Rmd</code></div>
@@ -688,9 +679,9 @@
 <span><span class="fu"><a href="../reference/spiral_track.html">spiral_track</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/spiral_dendrogram.html">spiral_dendrogram</a></span><span class="op">(</span><span class="va">dend</span><span class="op">)</span></span></code></pre></div>
 <p><img src="spiralize_intro_files/figure-html/unnamed-chunk-66-1.png" width="960" style="display: block; margin: auto;"></p>
-<p><code><a href="../reference/spiral_phylo.html">spiral_phylo()</a></code> works on the <code>phylo</code> object. In the following example, to cut the phylogenetic tree into several parts, the <code>phylo</code> object is converted to a <code>dendrogram</code> by the function <code><a href="../reference/phylo_to_dendrogram.html">phylo_to_dendrogram()</a></code>, later <code><a href="http://talgalili.github.io/dendextend/reference/cutree-methods.html" class="external-link">dendextend::cutree.dendrogram()</a></code> is applied to obtain the splits.</p>
+<p><code><a href="../reference/spiral_phylo.html">spiral_phylo()</a></code> works on the <code>phylo</code> object. In the following example, to cut the phylogenetic tree into several parts, the <code>phylo</code> object is converted to a <code>dendrogram</code> by the function <code><a href="../reference/spiral_phylo.html">phylo_to_dendrogram()</a></code>, later <code><a href="http://talgalili.github.io/dendextend/reference/cutree-methods.html" class="external-link">dendextend::cutree.dendrogram()</a></code> is applied to obtain the splits.</p>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://ape-package.ird.fr/" class="external-link">ape</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/emmanuelparadis/ape" class="external-link">ape</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">hivtree.newick</span><span class="op">)</span></span>
 <span><span class="va">tree.hiv</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/ape/man/read.tree.html" class="external-link">read.tree</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/textconnections.html" class="external-link">textConnection</a></span><span class="op">(</span><span class="va">hivtree.newick</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">n</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">tree.hiv</span><span class="op">$</span><span class="va">tip.label</span><span class="op">)</span> <span class="co"># number of leaves</span></span>
@@ -699,7 +690,7 @@
 <span><span class="fu"><a href="../reference/spiral_track.html">spiral_track</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/spiral_phylo.html">spiral_phylo</a></span><span class="op">(</span><span class="va">tree.hiv</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">split</span> <span class="op">=</span> <span class="fu">dendextend</span><span class="fu">::</span><span class="fu">cutree</span><span class="op">(</span><span class="fu"><a href="../reference/phylo_to_dendrogram.html">phylo_to_dendrogram</a></span><span class="op">(</span><span class="va">tree.hiv</span><span class="op">)</span>, k <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span>
+<span><span class="va">split</span> <span class="op">=</span> <span class="fu">dendextend</span><span class="fu">::</span><span class="fu">cutree</span><span class="op">(</span><span class="fu"><a href="../reference/spiral_phylo.html">phylo_to_dendrogram</a></span><span class="op">(</span><span class="va">tree.hiv</span><span class="op">)</span>, k <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span>
 <span><span class="va">tb</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">split</span><span class="op">)</span></span>
 <span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">tb</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="fu"><a href="../reference/spiral_highlight.html">spiral_highlight</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">tb</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">i</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">tb</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>, gp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/gpar.html" class="external-link">gpar</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">i</span><span class="op">)</span><span class="op">)</span></span>
@@ -740,7 +731,27 @@
 <p>The special variable <code>TRACK_META</code> retrieves several meta-information of the current track.</p>
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">TRACK_META</span></span></code></pre></div>
-<pre><code><span><span class="co">## Please use in form of `TRACK_META$name`. Type `names(TRACK_META)` for supported names.</span></span></code></pre>
+<pre><code><span><span class="co">## Please use in form of `TRACK_META$name`. Type `names(TRACK_META)` for supported names.</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## There are the following meta data for the current track:</span></span>
+<span><span class="co">##   xlim: c( 0 ,  100 )</span></span>
+<span><span class="co">##   xmin: 0 </span></span>
+<span><span class="co">##   xmax: 100 </span></span>
+<span><span class="co">##   xcenter: 50 </span></span>
+<span><span class="co">##   xrange: 100 </span></span>
+<span><span class="co">##   theta_lim: c( 6.283185 ,  31.41593 )</span></span>
+<span><span class="co">##   theta_min: 6.283185 </span></span>
+<span><span class="co">##   theta_max: 31.41593 </span></span>
+<span><span class="co">##   theta_center: 18.84956 </span></span>
+<span><span class="co">##   theta_range: 25.13274 </span></span>
+<span><span class="co">##   ylim: c( -1 ,  1 )</span></span>
+<span><span class="co">##   ymin: -1 </span></span>
+<span><span class="co">##   ymax: 1 </span></span>
+<span><span class="co">##   ycenter: 0 </span></span>
+<span><span class="co">##   yrange: 2 </span></span>
+<span><span class="co">##   abs_height: 0.64 </span></span>
+<span><span class="co">##   rel_height: 0.8 </span></span>
+<span><span class="co">##   track_index: 1</span></span></code></pre>
 <div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">TRACK_META</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##  [1] "xlim"         "xmin"         "xmax"         "xcenter"      "xrange"       "theta_lim"   </span></span>
@@ -748,20 +759,20 @@
 <span><span class="co">## [13] "ymax"         "ycenter"      "yrange"       "abs_height"   "rel_height"   "track_index"</span></span></code></pre>
 <p>The following two functions convert the data coordinates to polar coordinates or the canvas coordinates (the coordinates where the graphics are finally drawn).</p>
 <ul>
-<li><code><a href="../reference/xy_to_cartesian.html">xy_to_cartesian()</a></code></li>
-<li><code><a href="../reference/xy_to_polar.html">xy_to_polar()</a></code></li>
+<li><code><a href="../reference/coordinate.html">xy_to_cartesian()</a></code></li>
+<li><code><a href="../reference/coordinate.html">xy_to_polar()</a></code></li>
 </ul>
 <p>The following three functions get or set the tracks:</p>
 <ul>
-<li><code><a href="../reference/current_track_index.html">current_track_index()</a></code></li>
-<li><code><a href="../reference/set_current_track.html">set_current_track()</a></code></li>
+<li><code><a href="../reference/track_helper.html">current_track_index()</a></code></li>
+<li><code><a href="../reference/track_helper.html">set_current_track()</a></code></li>
 <li><code>n_track()</code></li>
 </ul>
 <p>There is also one more function which converts canvas coordinates to data coordinates. The data points are assigned to the nearest inner loops. For a data point <span class="math inline">\(P\)</span>, denote <span class="math inline">\(r\)</span> as the distance to the origin, <span class="math inline">\(\theta\)</span> is the angle to the line <span class="math inline">\(x &gt; 0, y = 0\)</span> (reverse-clockwise angle). Let’s assume the value of <span class="math inline">\(\theta\)</span> is between 0 and <span class="math inline">\(2\pi\)</span> (which is actually not important if <span class="math inline">\(\theta\)</span> multiplies with <span class="math inline">\(2\pi\)</span>). Denote <span class="math inline">\(r_k\)</span> and <span class="math inline">\(r_{k+1}\)</span> are the radius of the two loops of the spiral at <span class="math inline">\(\theta + 2\pi \cdot a\)</span> and <span class="math inline">\(\theta + 2\pi \cdot (a+1)\)</span> that below and above the data point (here <span class="math inline">\(a\)</span> is an integer which should be properly calculated to make sure <span class="math inline">\(p\)</span> is between loop <span class="math inline">\(k\)</span> and <span class="math inline">\(k+1\)</span>), then the data point <span class="math inline">\(P\)</span> is assigned to the loop <span class="math inline">\(k\)</span>.</p>
 <ul>
-<li><code><a href="../reference/cartesian_to_xy.html">cartesian_to_xy()</a></code></li>
+<li><code><a href="../reference/coordinate.html">cartesian_to_xy()</a></code></li>
 </ul>
-<p>There is an interesting application for <code><a href="../reference/cartesian_to_xy.html">cartesian_to_xy()</a></code> which is to overlay an image to the spiral. If we treat each pixel as a data point, then we can only draw those pixels which are inside a track on the spiral. In the following example, I first load an image object:</p>
+<p>There is an interesting application for <code><a href="../reference/coordinate.html">cartesian_to_xy()</a></code> which is to overlay an image to the spiral. If we treat each pixel as a data point, then we can only draw those pixels which are inside a track on the spiral. In the following example, I first load an image object:</p>
 <div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"doodle.RData"</span>, package <span class="op">=</span> <span class="st">"circlize"</span><span class="op">)</span><span class="op">)</span> <span class="co"># the loaded object is `img_list`</span></span>
 <span><span class="va">img</span> <span class="op">=</span> <span class="va">img_list</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="co"># img_list contains several images as `raster` objects, here we only use the first one.</span></span>
@@ -784,9 +795,9 @@
 <span>        <span class="va">x</span> <span class="op">=</span> <span class="op">(</span><span class="va">j</span> <span class="op">-</span> <span class="va">nc</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span><span class="op">/</span><span class="va">nc</span><span class="op">*</span><span class="fl">1.5</span><span class="op">*</span><span class="va">s</span><span class="op">$</span><span class="va">max_radius</span></span>
 <span>        <span class="va">y</span> <span class="op">=</span> <span class="op">-</span><span class="op">(</span><span class="va">i</span> <span class="op">-</span> <span class="va">nr</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span><span class="op">/</span><span class="va">nr</span><span class="op">*</span><span class="fl">1.5</span><span class="op">*</span><span class="va">s</span><span class="op">$</span><span class="va">max_radius</span></span>
 <span></span>
-<span>        <span class="va">df</span> <span class="op">=</span> <span class="fu"><a href="../reference/cartesian_to_xy.html">cartesian_to_xy</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
+<span>        <span class="va">df</span> <span class="op">=</span> <span class="fu"><a href="../reference/coordinate.html">cartesian_to_xy</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
 <span></span>
-<span>        <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="../reference/is_in_track.html">is_in_track</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">x</span>, <span class="va">df</span><span class="op">$</span><span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>        <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="../reference/track_helper.html">is_in_track</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">x</span>, <span class="va">df</span><span class="op">$</span><span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>            <span class="va">all_x</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">all_x</span>, <span class="va">df</span><span class="op">$</span><span class="va">x</span><span class="op">)</span></span>
 <span>            <span class="va">all_y</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">all_y</span>, <span class="va">df</span><span class="op">$</span><span class="va">y</span><span class="op">)</span></span>
 <span>            <span class="va">all_col</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">all_col</span>, <span class="va">img</span><span class="op">[</span><span class="va">i</span>, <span class="va">j</span><span class="op">]</span><span class="op">)</span></span>
@@ -804,16 +815,16 @@
 </h2>
 <div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## R version 4.3.1 (2023-06-16)</span></span>
+<pre><code><span><span class="co">## R version 4.3.3 (2024-02-29)</span></span>
 <span><span class="co">## Platform: x86_64-apple-darwin20 (64-bit)</span></span>
-<span><span class="co">## Running under: macOS Ventura 13.2.1</span></span>
+<span><span class="co">## Running under: macOS Sonoma 14.5</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Matrix products: default</span></span>
 <span><span class="co">## BLAS:   /Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/lib/libRblas.0.dylib </span></span>
 <span><span class="co">## LAPACK: /Library/Frameworks/R.framework/Versions/4.3-x86_64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## locale:</span></span>
-<span><span class="co">## [1] C/UTF-8/C/C/C/C</span></span>
+<span><span class="co">## [1] en_GB.UTF-8/en_GB.UTF-8/en_GB.UTF-8/C/en_GB.UTF-8/en_GB.UTF-8</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## time zone: Europe/Berlin</span></span>
 <span><span class="co">## tzcode source: internal</span></span>
@@ -822,29 +833,29 @@
 <span><span class="co">## [1] grid      stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## other attached packages:</span></span>
-<span><span class="co">## [1] ape_5.7-1         dendextend_1.17.1 circlize_0.4.15   GetoptLong_1.0.5  cowplot_1.1.1    </span></span>
-<span><span class="co">## [6] spiralize_1.0.9   knitr_1.44       </span></span>
+<span><span class="co">## [1] ape_5.8           dendextend_1.17.1 circlize_0.4.16   GetoptLong_1.0.5  cowplot_1.1.3    </span></span>
+<span><span class="co">## [6] spiralize_1.1.0   knitr_1.45       </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## loaded via a namespace (and not attached):</span></span>
-<span><span class="co">##  [1] gtable_0.3.4          shape_1.4.6           rjson_0.2.21          xfun_0.40            </span></span>
-<span><span class="co">##  [5] bslib_0.6.1           ggplot2_3.4.4         GlobalOptions_0.1.2   lattice_0.21-9       </span></span>
-<span><span class="co">##  [9] vctrs_0.6.4           tools_4.3.1           generics_0.1.3        stats4_4.3.1         </span></span>
-<span><span class="co">## [13] parallel_4.3.1        tibble_3.2.1          fansi_1.0.5           cluster_2.1.4        </span></span>
-<span><span class="co">## [17] pkgconfig_2.0.3       RColorBrewer_1.1-3    desc_1.4.2            S4Vectors_0.40.2     </span></span>
-<span><span class="co">## [21] lifecycle_1.0.4       compiler_4.3.1        stringr_1.5.0         textshaping_0.3.7    </span></span>
-<span><span class="co">## [25] munsell_0.5.0         codetools_0.2-19      ComplexHeatmap_2.18.0 clue_0.3-65          </span></span>
-<span><span class="co">## [29] htmltools_0.5.7       sass_0.4.8            yaml_2.3.7            pillar_1.9.0         </span></span>
-<span><span class="co">## [33] pkgdown_2.0.7         crayon_1.5.2          jquerylib_0.1.4       cachem_1.0.8         </span></span>
-<span><span class="co">## [37] viridis_0.6.4         magick_2.8.0          iterators_1.0.14      foreach_1.5.2        </span></span>
-<span><span class="co">## [41] nlme_3.1-163          tidyselect_1.2.0      digest_0.6.33         stringi_1.7.12       </span></span>
-<span><span class="co">## [45] dplyr_1.1.3           purrr_1.0.2           rprojroot_2.0.3       fastmap_1.1.1        </span></span>
-<span><span class="co">## [49] colorspace_2.1-0      cli_3.6.2             magrittr_2.0.3        utf8_1.2.3           </span></span>
-<span><span class="co">## [53] bezier_1.1.2          withr_2.5.2           scales_1.2.1          lubridate_1.9.3      </span></span>
-<span><span class="co">## [57] timechange_0.2.0      rmarkdown_2.25        matrixStats_1.2.0     gridExtra_2.3        </span></span>
-<span><span class="co">## [61] ragg_1.2.6            png_0.1-8             memoise_2.0.1         evaluate_0.22        </span></span>
-<span><span class="co">## [65] IRanges_2.36.0        doParallel_1.0.17     viridisLite_0.4.2     rlang_1.1.2          </span></span>
-<span><span class="co">## [69] Rcpp_1.0.11           glue_1.6.2            BiocGenerics_0.48.1   jsonlite_1.8.8       </span></span>
-<span><span class="co">## [73] R6_2.5.1              systemfonts_1.0.5     fs_1.6.3</span></span></code></pre>
+<span><span class="co">##  [1] gtable_0.3.5          shape_1.4.6.1         rjson_0.2.21          xfun_0.43            </span></span>
+<span><span class="co">##  [5] bslib_0.7.0           ggplot2_3.5.1         htmlwidgets_1.6.4     GlobalOptions_0.1.2  </span></span>
+<span><span class="co">##  [9] lattice_0.22-5        vctrs_0.6.5           tools_4.3.3           generics_0.1.3       </span></span>
+<span><span class="co">## [13] stats4_4.3.3          parallel_4.3.3        tibble_3.2.1          fansi_1.0.6          </span></span>
+<span><span class="co">## [17] cluster_2.1.6         highr_0.10            pkgconfig_2.0.3       RColorBrewer_1.1-3   </span></span>
+<span><span class="co">## [21] desc_1.4.3            S4Vectors_0.40.2      lifecycle_1.0.4       compiler_4.3.3       </span></span>
+<span><span class="co">## [25] textshaping_0.3.7     munsell_0.5.1         codetools_0.2-19      ComplexHeatmap_2.18.0</span></span>
+<span><span class="co">## [29] clue_0.3-65           htmltools_0.5.8.1     sass_0.4.9            yaml_2.3.8           </span></span>
+<span><span class="co">## [33] pillar_1.9.0          pkgdown_2.0.9         crayon_1.5.2          jquerylib_0.1.4      </span></span>
+<span><span class="co">## [37] cachem_1.0.8          viridis_0.6.5         magick_2.8.3          iterators_1.0.14     </span></span>
+<span><span class="co">## [41] foreach_1.5.2         nlme_3.1-164          tidyselect_1.2.1      digest_0.6.35        </span></span>
+<span><span class="co">## [45] dplyr_1.1.4           purrr_1.0.2           fastmap_1.1.1         colorspace_2.1-0     </span></span>
+<span><span class="co">## [49] cli_3.6.2             magrittr_2.0.3        utf8_1.2.4            bezier_1.1.2         </span></span>
+<span><span class="co">## [53] withr_3.0.0           scales_1.3.0          lubridate_1.9.3       timechange_0.3.0     </span></span>
+<span><span class="co">## [57] rmarkdown_2.26        matrixStats_1.3.0     gridExtra_2.3         ragg_1.3.1           </span></span>
+<span><span class="co">## [61] png_0.1-8             memoise_2.0.1         evaluate_0.23         IRanges_2.36.0       </span></span>
+<span><span class="co">## [65] doParallel_1.0.17     viridisLite_0.4.2     rlang_1.1.3           Rcpp_1.0.12          </span></span>
+<span><span class="co">## [69] glue_1.7.0            BiocGenerics_0.48.1   jsonlite_1.8.8        R6_2.5.1             </span></span>
+<span><span class="co">## [73] systemfonts_1.0.6     fs_1.6.4</span></span></code></pre>
 <script src="jquery.min.js"></script><script src="jquery.sticky.js"></script><script>
 $(document).ready(function(){
     $("#TOC").sticky({
@@ -895,7 +906,7 @@ $(document).ready(function(){
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
 </div>
 
       </footer>

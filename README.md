@@ -39,11 +39,11 @@ It includes three steps:
 
 1. initialize the spiral,
 2. add a track,
-3. add graphics in the track.
+3. add graphics to the track.
 
 Step 2 and 3 can be applied multiple times to allow multiple-track visualization along the spiral.
 
-The code for making spiral plot looks like follows:
+The code for making spiral plot looks likes follows:
 
 ```r
 library(spiralize)
@@ -82,18 +82,14 @@ Spiral plot can also visualize dendrograms with large number of leaves, thus the
 
 1. Difference of **ggplot2** daily downloads to the mean of the current year (2015-2021). Each loop contains 52 weeks so that same weeks in different years locate at the same angle in the polar coordinates.
 
-![](https://user-images.githubusercontent.com/449218/122206336-8c125400-cea1-11eb-8b0d-2314aede4641.png)
-
-2. The same data as the first one, but horizon chart is used. Also title and legends are added.
-
 ![](https://user-images.githubusercontent.com/449218/122206221-671de100-cea1-11eb-823e-6c48de851667.png)
 
 
-3. A phylogenetic life tree with 50645 species. 
+2. A phylogenetic life tree with 50645 species. 
 
 ![](https://user-images.githubusercontent.com/449218/123804978-fbe6fc80-d8ed-11eb-93d8-d3f83d552dde.png)
 
-4. The spiral COVID-19 Shiny app
+3. The spiral COVID-19 Shiny app
 
 ![](https://user-images.githubusercontent.com/449218/154753102-d66b3588-eca1-471b-bdfe-2c147ed257f5.gif)
 

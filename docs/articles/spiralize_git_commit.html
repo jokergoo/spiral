@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Spiral visualization on git commits of a git repo • spiralize</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -33,12 +33,15 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spiralize</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
+<li>
+  <a href="../articles/examples.html">Examples</a>
+</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
@@ -55,18 +58,6 @@
     </li>
     <li>
       <a href="../articles/annotate.html">Annotate the Plot</a>
-    </li>
-    <li>
-      <a href="../articles/examples.html">Real World Examples</a>
-    </li>
-    <li>
-      <a href="../articles/tree_of_life.html">Visualize tree of life</a>
-    </li>
-    <li class="divider">
-    </li>
-<li class="dropdown-header">More applications</li>
-    <li>
-      <a href="../articles/spiralize_git_commit.html">Spiral visualization on git commits of a git repo</a>
     </li>
   </ul>
 </li>
@@ -97,7 +88,7 @@
       <h1 data-toc-skip>Spiral visualization on git commits of a git repo</h1>
                         <h4 data-toc-skip class="author">Zuguang Gu (<a href="mailto:z.gu@dkfz.de" class="email">z.gu@dkfz.de</a>)</h4>
             
-            <h4 data-toc-skip class="date">2024-02-27</h4>
+            <h4 data-toc-skip class="date">2024-06-14</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/jokergoo/spiralize/blob/HEAD/vignettes/spiralize_git_commit.Rmd" class="external-link"><code>vignettes/spiralize_git_commit.Rmd</code></a></small>
       <div class="hidden name"><code>spiralize_git_commit.Rmd</code></div>
@@ -108,40 +99,121 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jokergoo/spiralize" class="external-link">spiralize</a></span><span class="op">)</span></span></code></pre></div>
-<p><code><a href="../reference/spiral_git_commits.html">spiral_git_commits()</a></code> visualizes numbers of daily git commits in a spiral. The first argument should be the path of a local git repository. The following shows commit histories of some of my R packages.</p>
+<div class="section level2">
+<h2 id="github-commits">GitHub commits<a class="anchor" aria-label="anchor" href="#github-commits"></a>
+</h2>
+<p>This example visualizes my GitHub daily commits from 2013-04-18 to 2021-07-01. The data is retrieved by the following code:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/spiral_git_commits.html">spiral_git_commits</a></span><span class="op">(</span><span class="st">"~/project/development/ComplexHeatmap"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="spiralize_git_commit_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;"></p>
+<code class="sourceCode R"><span><span class="va">repos</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GlobalOptions"</span>, <span class="st">"GetoptLong"</span>, <span class="st">"circlize"</span>, <span class="st">"bsub"</span>, <span class="st">"pkgndep"</span>, <span class="st">"ComplexHeatmap"</span>, <span class="st">"EnrichedHeatmap"</span>, </span>
+<span>    <span class="st">"HilbertCurve"</span>, <span class="st">"gtrellis"</span>, <span class="st">"cola"</span>, <span class="st">"simplifyEnrichment"</span>, <span class="st">"InteractiveComplexHeatmap"</span>, <span class="st">"spiralize"</span>, <span class="st">"rGREAT"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">df_all</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>commits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>, date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>, repo <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="kw">for</span><span class="op">(</span><span class="va">r</span> <span class="kw">in</span> <span class="va">repos</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="co"># go to each repo folder</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"~/project/development/"</span>, <span class="va">r</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="va">df</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/connections.html" class="external-link">pipe</a></span><span class="op">(</span><span class="st">"git log --date=short --pretty=format:%ad | sort | uniq -c"</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"commits"</span>, <span class="st">"date"</span><span class="op">)</span></span>
+<span>    <span class="va">df</span><span class="op">$</span><span class="va">repo</span> <span class="op">=</span> <span class="va">r</span></span>
+<span></span>
+<span>    <span class="va">df_all</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">df_all</span>, <span class="va">df</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">df_all</span><span class="op">$</span><span class="va">date</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="va">df_all</span><span class="op">$</span><span class="va">date</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">start</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">df_all</span><span class="op">$</span><span class="va">date</span><span class="op">)</span></span>
+<span><span class="va">end</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">df_all</span><span class="op">$</span><span class="va">date</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">d</span> <span class="op">=</span> <span class="va">start</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">end</span> <span class="op">-</span> <span class="va">start</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span></span>
+<span><span class="va">n</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">nl</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">repos</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">nl</span><span class="op">)</span> <span class="op">=</span> <span class="va">repos</span></span>
+<span></span>
+<span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">df_all</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">ind</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">as.double</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/difftime.html" class="external-link">difftime</a></span><span class="op">(</span><span class="va">df_all</span><span class="op">[</span><span class="va">i</span>, <span class="st">"date"</span><span class="op">]</span>, <span class="va">start</span><span class="op">)</span>, <span class="st">"days"</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span></span>
+<span>    <span class="va">n</span><span class="op">[</span><span class="va">ind</span><span class="op">]</span> <span class="op">=</span> <span class="va">n</span><span class="op">[</span><span class="va">ind</span><span class="op">]</span> <span class="op">+</span> <span class="va">df_all</span><span class="op">[</span><span class="va">i</span>, <span class="st">"commits"</span><span class="op">]</span></span>
+<span></span>
+<span>    <span class="va">nl</span><span class="op">[[</span> <span class="va">df_all</span><span class="op">[</span><span class="va">i</span>, <span class="st">"repo"</span><span class="op">]</span> <span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="va">ind</span><span class="op">]</span> <span class="op">=</span> <span class="va">nl</span><span class="op">[[</span> <span class="va">df_all</span><span class="op">[</span><span class="va">i</span>, <span class="st">"repo"</span><span class="op">]</span> <span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="va">ind</span><span class="op">]</span> <span class="op">+</span> <span class="va">df_all</span><span class="op">[</span><span class="va">i</span>, <span class="st">"commits"</span><span class="op">]</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">lt</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>d <span class="op">=</span> <span class="va">d</span>, n <span class="op">=</span> <span class="va">n</span>, nl <span class="op">=</span> <span class="va">nl</span><span class="op">)</span></span></code></pre></div>
+<p>Here <code>d</code> is a vector of dates, <code>n</code> is a vector of daily commits of all packages, and <code>nl</code> is a list of vectors of commits of individual packages.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/spiral_git_commits.html">spiral_git_commits</a></span><span class="op">(</span><span class="st">"~/project/development/circlize"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="spiralize_git_commit_files/figure-html/unnamed-chunk-3-2.png" width="672" style="display: block; margin: auto;"></p>
+<code class="sourceCode R"><span><span class="va">lt</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"github_commits.rds"</span>, package <span class="op">=</span> <span class="st">"spiralize"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">d</span> <span class="op">=</span> <span class="va">lt</span><span class="op">$</span><span class="va">d</span></span>
+<span><span class="va">n</span> <span class="op">=</span> <span class="va">lt</span><span class="op">$</span><span class="va">n</span></span>
+<span><span class="va">nl</span> <span class="op">=</span> <span class="va">lt</span><span class="op">$</span><span class="va">nl</span></span></code></pre></div>
+<p>I will use points to visualize commits. I first define a simple function to map between commits to point sizes.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/spiral_git_commits.html">spiral_git_commits</a></span><span class="op">(</span><span class="st">"~/project/development/rGREAT"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="spiralize_git_commit_files/figure-html/unnamed-chunk-3-3.png" width="672" style="display: block; margin: auto;"></p>
+<code class="sourceCode R"><span><span class="va">calc_pt_size</span> <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">pt_size</span> <span class="op">=</span> <span class="va">x</span></span>
+<span>    <span class="va">pt_size</span><span class="op">[</span><span class="va">pt_size</span> <span class="op">&gt;</span> <span class="fl">20</span><span class="op">]</span> <span class="op">=</span> <span class="fl">20</span></span>
+<span>    <span class="va">pt_size</span><span class="op">[</span><span class="va">pt_size</span> <span class="op">&lt;</span> <span class="fl">2</span> <span class="op">&amp;</span> <span class="va">pt_size</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">]</span> <span class="op">=</span> <span class="fl">2</span></span>
+<span>    <span class="va">pt_size</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>Next I make the plot for the total commits and commits for individual pacakges. It is actually very easy to see in which period the package was mostly actively developed.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/spiral_git_commits.html">spiral_git_commits</a></span><span class="op">(</span><span class="st">"~/project/development/simona"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="spiralize_git_commit_files/figure-html/unnamed-chunk-3-4.png" width="672" style="display: block; margin: auto;"></p>
+<code class="sourceCode R"><span><span class="va">xlim</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">d</span><span class="op">)</span></span>
+<span><span class="va">pl</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">pl</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/grid.grab.html" class="external-link">grid.grabExpr</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="../reference/spiral_initialize_by_time.html">spiral_initialize_by_time</a></span><span class="op">(</span><span class="va">xlim</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/spiral_track.html">spiral_track</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/spiral_points.html">spiral_points</a></span><span class="op">(</span><span class="va">d</span>, <span class="fl">0.5</span>, pch <span class="op">=</span> <span class="fl">16</span>, size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu">calc_pt_size</span><span class="op">(</span><span class="va">n</span><span class="op">)</span>, <span class="st">"pt"</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/grid/grid.text.html" class="external-link">grid.text</a></span><span class="op">(</span><span class="st">"All packages"</span>, x <span class="op">=</span> <span class="fl">0</span>, y <span class="op">=</span> <span class="fl">1</span>, just <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"left"</span>, <span class="st">"top"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">nl</span>, <span class="va">sum</span><span class="op">)</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">pl</span><span class="op">[[</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">nl</span><span class="op">)</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">]</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/grid.grab.html" class="external-link">grid.grabExpr</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>        <span class="fu"><a href="../reference/spiral_initialize_by_time.html">spiral_initialize_by_time</a></span><span class="op">(</span><span class="va">xlim</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>        <span class="fu"><a href="../reference/spiral_track.html">spiral_track</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>        <span class="fu"><a href="../reference/spiral_points.html">spiral_points</a></span><span class="op">(</span><span class="va">d</span>, <span class="fl">0.5</span>, pch <span class="op">=</span> <span class="fl">16</span>, size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fu">calc_pt_size</span><span class="op">(</span><span class="va">nl</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>, <span class="st">"pt"</span><span class="op">)</span><span class="op">)</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/grid/grid.text.html" class="external-link">grid.text</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">nl</span><span class="op">)</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, x <span class="op">=</span> <span class="fl">0</span>, y <span class="op">=</span> <span class="fl">1</span>, just <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"left"</span>, <span class="st">"top"</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/cowplot/" class="external-link">cowplot</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/plot_grid.html" class="external-link">plot_grid</a></span><span class="op">(</span>plotlist <span class="op">=</span> <span class="va">pl</span>, ncol <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
+<p><img src="spiralize_git_commit_files/figure-html/unnamed-chunk-6-1.png" width="1536" style="display: block; margin: auto;"></p>
+</div>
+<div class="section level2">
+<h2 id="the-spiral_git_commits-function">The spiral_git_commits() function<a class="anchor" aria-label="anchor" href="#the-spiral_git_commits-function"></a>
+</h2>
+<p><code><a href="../reference/spiral_git_commits.html">spiral_git_commits()</a></code> wraps the code in the previous section. The first argument in the function should be the path of a local git repository. The following shows commit histories of some of my R packages.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/spiral_git_commits.html">spiral_git_commits</a></span><span class="op">(</span><span class="st">"~/project/development/spiralize"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="spiralize_git_commit_files/figure-html/unnamed-chunk-3-5.png" width="672" style="display: block; margin: auto;"></p>
-<p>Let’s check the development activity of several programming languages:</p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/spiral_git_commits.html">spiral_git_commits</a></span><span class="op">(</span><span class="st">"~/project/development/ComplexHeatmap"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="spiralize_git_commit_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/spiral_git_commits.html">spiral_git_commits</a></span><span class="op">(</span><span class="st">"~/test/r-source"</span>, commits_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">60</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="spiralize_git_commit_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;"></p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/spiral_git_commits.html">spiral_git_commits</a></span><span class="op">(</span><span class="st">"~/project/development/circlize"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="spiralize_git_commit_files/figure-html/unnamed-chunk-7-2.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/spiral_git_commits.html">spiral_git_commits</a></span><span class="op">(</span><span class="st">"~/test/cpython"</span>, commits_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">60</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="spiralize_git_commit_files/figure-html/unnamed-chunk-4-2.png" width="672" style="display: block; margin: auto;"></p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/spiral_git_commits.html">spiral_git_commits</a></span><span class="op">(</span><span class="st">"~/project/development/rGREAT"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="spiralize_git_commit_files/figure-html/unnamed-chunk-7-3.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/spiral_git_commits.html">spiral_git_commits</a></span><span class="op">(</span><span class="st">"~/test/perl5"</span>, commits_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">60</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="spiralize_git_commit_files/figure-html/unnamed-chunk-4-3.png" width="672" style="display: block; margin: auto;"></p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/spiral_git_commits.html">spiral_git_commits</a></span><span class="op">(</span><span class="st">"~/project/development/simona"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="spiralize_git_commit_files/figure-html/unnamed-chunk-7-4.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/spiral_git_commits.html">spiral_git_commits</a></span><span class="op">(</span><span class="st">"~/project/development/spiralize"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="spiralize_git_commit_files/figure-html/unnamed-chunk-7-5.png" width="672" style="display: block; margin: auto;"></p>
+<p>Let’s check the development activity of several programming languages:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/spiral_git_commits.html">spiral_git_commits</a></span><span class="op">(</span><span class="st">"~/test/r-source"</span>, commits_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">60</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="git_commit_r.png"></p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/spiral_git_commits.html">spiral_git_commits</a></span><span class="op">(</span><span class="st">"~/test/cpython"</span>, commits_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">60</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="git_commit_python.png"></p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/spiral_git_commits.html">spiral_git_commits</a></span><span class="op">(</span><span class="st">"~/test/perl5"</span>, commits_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">60</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="git_commit_perl.png"></p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/spiral_git_commits.html">spiral_git_commits</a></span><span class="op">(</span><span class="st">"~/test/julia"</span>, commits_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">60</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="spiralize_git_commit_files/figure-html/unnamed-chunk-4-4.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="git_commit_julia.png"></p>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-      </div>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
+</div>
 
 </div>
 
@@ -154,7 +226,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
 </div>
 
       </footer>

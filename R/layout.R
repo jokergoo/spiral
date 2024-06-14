@@ -1,16 +1,13 @@
 
-# == title
-# Clear the spiral curve
-#
-# == param
-# -check_vp Whether to check the viewport.
-#
-# == details
-# It basically sets the internally spiral object to NULL, and reset all the global options.
-#
-# == value
-# No value is returned.
-#
+#' Clear the spiral curve
+#'
+#' @param check_vp Whether to check the viewport.
+#'
+#' @details
+#' It basically sets the internally spiral object to `NULL`, and reset all the global options.
+#' @export
+#' @return
+#' No value is returned.
 spiral_clear = function(check_vp = TRUE) {
 	spiral_env$spiral = NULL
 	track_env$track_data = empty_track_data
@@ -32,86 +29,20 @@ spiral_clear = function(check_vp = TRUE) {
 	}
 }
 
-# == title
-# Add a new track or go to an existed track
-#
-# == param
-# -ylim Data range of the y-locations.
-# -height Height of the track. The value can be the fraction of the distance of the two neighbour loops. The value can also be a `grid::unit` object.
-# -background Whether to draw the background of the track, i.e. border and filled color of background.
-# -background_gp Graphics parameters of the background.
-# -reverse_y Whether reverse the direction of y-axis.
-# -track_index Index of the track. 
-#
-# == details
-# If the track is already existed, the function simply mark the track as the current track and does nothing else.
-#
-# == value
-# No value is returned.
-#
-# == example
-# spiral_initialize()
-# spiral_track(height = 0.8)
-#
-# spiral_initialize()
-# spiral_track(height = 0.4, background_gp = gpar(fill = "red"))
-# spiral_track(height = 0.2, background_gp = gpar(fill = "green"))
-# spiral_track(height = 0.1, background_gp = gpar(fill = "blue"))
-spiral_track = function(ylim = c(0, 1), height = 0.8, background = TRUE, 
-	background_gp = gpar(col = "#EEEEEE", fill = "#EEEEEE"), reverse_y = FALSE,
-	track_index = current_track_index() + 1) {
-
-	spiral = spiral_env$spiral
-	dist = spiral$dist
-
-	if(is.unit(height)) {
-		height = convertHeight(height, "native", valueOnly = TRUE)
-		height = height/dist
-	}
-
-	if(track_existed(track_index)) {
-		# only reset current track
-		set_current_track(track_index)
-	} else {
-		# a new track
-		if(!track_existed(track_index - 1)) {
-			stop_wrap(qq("There are only @{n_tracks()} existed. The value of `track_index` should not be larger than @{n_tracks() + 1}."))
-		} else {
-			sum_height = sum(track_env$track_data[, "rel_height"])
-			new_track_data = data.frame(i = track_index, 
-				ymin = ylim[1], ymax = ylim[2], 
-				rmin = sum_height*dist, rmax = (sum_height + height)*dist, 
-				rel_height = height, reverse_y = reverse_y)
-			add_track(track_index, new_track_data)
-		}
-
-		if(spiral$theta_range/2/pi > 30) { # if there are more than 30 loops
-			if(missing(background)) {
-				background = FALSE
-			}
-		}
-
-		if(background) {
-			if(!"col" %in% names(background_gp)) {
-				background_gp$col = NA
-			}
-			if(!"fill" %in% names(background_gp)) {
-				background_gp$fill = "#EEEEEE"
-			}
-			spiral_rect(spiral$xlim[1], get_track_data("ymin"), spiral$xlim[2], get_track_data("ymax"), gp = background_gp)
-		}
-	}
-}
-
-# == title
-# Information of the current spiral
-#
-# == details
-# It prints information of the current spiral.
-#
-# == value
-# No value is returned.
-#
+#' Information of the current spiral
+#'
+#' @details
+#' It prints information of the current spiral.
+#'
+#' @return
+#' No value is returned.
+#' @export
+#' @importFrom GetoptLong qqcat
+#' @examples
+#' spiral_initialize()
+#' spiral_track(ylim = c(0, 1), height = 0.4)
+#' spiral_track(ylim = c(-10, 10), height = 0.4)
+#' spiral_info()
 spiral_info = function() {
 	spiral = spiral_env$spiral
 	if(is.null(spiral)) {

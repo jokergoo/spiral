@@ -19,7 +19,13 @@
     <loc>/articles/index.html</loc>
   </url>
   <url>
+    <loc>/articles/more_examples.html</loc>
+  </url>
+  <url>
     <loc>/articles/special_data_type.html</loc>
+  </url>
+  <url>
+    <loc>/articles/spiral_covid.html</loc>
   </url>
   <url>
     <loc>/articles/spiralize.html</loc>
@@ -47,6 +53,9 @@
   </url>
   <url>
     <loc>/reference/cartesian_to_xy.html</loc>
+  </url>
+  <url>
+    <loc>/reference/coordinate.html</loc>
   </url>
   <url>
     <loc>/reference/current_spiral.html</loc>
@@ -139,6 +148,9 @@
     <loc>/reference/spiral_phylo.html</loc>
   </url>
   <url>
+    <loc>/reference/spiral_pkg_downloads.html</loc>
+  </url>
+  <url>
     <loc>/reference/spiral_points.html</loc>
   </url>
   <url>
@@ -164,6 +176,9 @@
   </url>
   <url>
     <loc>/reference/spiral_yaxis.html</loc>
+  </url>
+  <url>
+    <loc>/reference/track_helper.html</loc>
   </url>
   <url>
     <loc>/reference/xy_to_cartesian.html</loc>

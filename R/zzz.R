@@ -1,5 +1,5 @@
 .onAttach = function(libname, pkgname) {
-    version = packageDescription(pkgname, fields = "Version")
+    version = utils::packageDescription(pkgname, fields = "Version")
 
   	msg = paste0("========================================
 ", pkgname, " version ", version, "

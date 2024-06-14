@@ -1,38 +1,45 @@
 
-# == title
-# Convert data coordinates to the canvas coordinates
-#
-# == param
-# -x X-locations of the data points.
-# -y Y-locations of the data points.
-# -track_index Index of the track. 
-#
-# == details
-# The canvas coordinates correspond to the "native" coordinates of the viewport where the graphics are to be drawn.
-#
-# Note different settings of ``flip`` and ``reverse`` in `spiral_initialize` affect the conversion.
-#
-# == value
-# A data frame with two columns: x and y.
+#' Transform between coordinate systems
+#'
+#' @param x X-locations of the data points.
+#' @param y Y-locations of the data points.
+#' @param track_index Index of the track. 
+#'
+#' @details
+#' There are three coordinate systems: the data coordinate system (xy), the polar coordinate system (polar)
+#' and the canvas coordinate system (cartesian). The canvas coordinates correspond to the "native" coordinates of the viewport where the graphics are drawn.
+#' 
+#' Note different settings of `flip` and `reverse` in [`spiral_initialize()`] affect the conversion.
+#' 
+#' `xy_to_cartesian()` converts from the data coordinate system to the canvas coordinate system. 
+#'
+#' @export
+#' @rdname coordinate
+#' @return
+#' `xy_to_cartesian()` returns A data frame with two columns: `x` and `y`.
+#' 
+#' @examples
+#' x = runif(2)
+#' y = runif(2)
+#' spiral_initialize(xlim = c(0, 1))
+#' spiral_track(ylim = c(0, 1))
+#' spiral_points(x, y)
+#' xy_to_cartesian(x, y)
+#' xy_to_polar(x, y)
 xy_to_cartesian = function(x, y, track_index = current_track_index()) {
 	df_polar = xy_to_polar(x, y, track_index = track_index)
 	polar_to_cartesian(df_polar$theta, df_polar$r)
 }
 
-# == title
-# Convert data coordinates to polar coordinates
-#
-# == param
-# -x X-locations of the data points.
-# -y Y-locations of the data points.
-# -track_index Index of the track. 
-# -flip If it is FALSE, it returns theta for the original spiral (before flipping).
-#
-# == details
-# Note different settings of ``flip`` and ``reverse`` in `spiral_initialize` affect the conversion.
-#
-# == value
-# A data frame with two columns: theta (in radians) and r (the radius).
+#' @param flip If it is `FALSE`, it returns theta for the original spiral (before flipping).
+#'
+#' @details
+#' `xy_to_polar()` converts from the data coordinate system to the polar coordinate system.
+#'
+#' @export
+#' @rdname coordinate
+#' @return
+#' `xy_to_polar()` returns a data frame with two columns: `theta` (in radians) and `r` (the radius).
 xy_to_polar = function(x, y, track_index = current_track_index(), flip = TRUE) {
 
 	if(track_index == 0) {
@@ -73,15 +80,16 @@ xy_to_polar = function(x, y, track_index = current_track_index(), flip = TRUE) {
 	data.frame(theta = theta, r = r)
 }
 
-# == title
-# Convert polar coordinates to catersian coordinates
-#
-# == param
-# -theta Angles, in radians.
-# -r Radius.
-#
-# == value
-# A data frame with two columns: x abd y.
+#' @param theta Angles, in radians.
+#' @param r Radius.
+#' 
+#' @details
+#' `polar_to_cartesian()` converts from the polar coordinate system to the canvas coordinate system.
+#'
+#' @export
+#' @rdname coordinate
+#' @return
+#' `polar_to_cartesian()` returns a data frame with two columns: `x` and `y`.
 polar_to_cartesian = function(theta, r) {
 	x = cos(theta)*r
 	y = sin(theta)*r
@@ -89,7 +97,13 @@ polar_to_cartesian = function(theta, r) {
 	data.frame(x = x, y = y)
 }
 
-# note here polar can not be directly used in spirals
+#' @details
+#' `cartesian_to_polar()` converts from the canvas coordinate system to the polar coordinate system.
+#'
+#' @export
+#' @rdname coordinate
+#' @return
+#' `cartesian_to_polar()` returns a data frame with two columns: `theta` (in radians) and `r` (the radius).
 cartesian_to_polar = function(x, y) {
 	theta = atan(y/x)
 	r = sqrt(x*x + y*y)
@@ -257,28 +271,27 @@ get_theta_from_x = function(x, ...) {
 	xy_to_polar(x, rep(0, length(x)), ...)$theta
 }
 
-# == title
-# Get theta from given spiral lengths
-#
-# == param
-# -len A vector of spiral lengths.
-# -interval Interval to search for the solution.
-# -offset Offset of the spiral. In the general form: ``r = a + r*theta``, offset is the value of ``a``.
-#
-# == details
-# The length of the spiral has a complicated form, see https://downloads.imagej.net/fiji/snapshots/arc_length.pdf .
-# Let's say the form is ``l = f(theta)``, `solve_theta_from_spiral_length` tries to find theta by a known ``l``.
-# It uses `stats::uniroot` to search solutions.
-#
-# == value
-# The theta value.
-#
-# == example
-# spiral_initialize()
-# s = current_spiral()
-# theta = pi*seq(2, 3, length = 10)
-# len = s$spiral_length(theta)
-# solve_theta_from_spiral_length(len) # should be very similar as theta
+#' Get theta from given spiral lengths
+#'
+#' @param len A vector of spiral lengths.
+#' @param interval Interval to search for the solution.
+#' @param offset Offset of the spiral. In the general form: ` r = a + r*theta`, offset is the value of `a`.
+#'
+#' @details
+#' The length of the spiral has a complicated form, see [https://downloads.imagej.net/fiji/snapshots/arc_length.pdf](https://downloads.imagej.net/fiji/snapshots/arc_length.pdf).
+#' Let's say the form is `l = f(theta)` where `f()` is the complex equation for calculating `l`, `solve_theta_from_spiral_length()` tries to find theta with a known `l`.
+#' It uses [`stats::uniroot()`] to search for the solutions.
+#'
+#' @return The theta value.
+#' @export
+#' @importFrom stats uniroot
+#' @examples
+#' spiral_initialize()
+#' s = current_spiral()
+#' theta = pi*seq(2, 3, length = 10)
+#' theta
+#' len = s$spiral_length(theta)
+#' solve_theta_from_spiral_length(len) # should be very similar as theta
 solve_theta_from_spiral_length = function(len, interval = NULL, offset = 0) {
 	n = length(len)
 	theta = numeric(n)
@@ -329,32 +342,26 @@ flip_theta_back = function(theta) {
 	theta
 }
 
-# == title
-# Convert canvas coordinates to the data coordinates
-#
-# == param
-# -x X-locations of the data points in canvas coordinates.
-# -y Y-locations of the data points in canvas coordinates.
-# -track_index Index of the track. 
-#
-# == details
-# The data points are assigned to the nearest inner loops. Denote the a data point has a coordinate (r, theta)
-# in the polar coordinate system, r_k and r_(k+1) are the radius of the two loops at theta + 2*pi*a and theta + 2*pi*(a+1) that below and above the data point,
-# the data point is assigned to the loop k.
-#
-# == value
-# A data frame with two columns: x and y.
-#
-# == example
-# x = runif(100, -5, 5)
-# y = runif(100, -5, 5)
-# spiral_initialize()
-# spiral_track()
-# df = cartesian_to_xy(x, y)
-# # directly draw in the viewport
-# grid.points(x, y, default.units="native")
-# # check whether the converted xy are correct (should overlap to the previous points)
-# spiral_points(df$x, df$y, pch = 16)
+
+#' @details
+#' `cartesian_to_xy()` converts from the canvas coordinate system to the data coordinate system. 
+#' The data points are assigned to the nearest inner spiral loops (if the point is located inside a certain spiral loop, the distance is zero). 
+#'
+#' @return
+#' `cartesian_to_xy()` returns a data frame with two columns: `x` and `y`.
+#' @rdname coordinate
+#' @export
+#' @examples
+#' 
+#' x = runif(100, -4, 4)
+#' y = runif(100, -4, 4)
+#' spiral_initialize(xlim = c(0, 1))
+#' spiral_track(ylim = c(0, 1))
+#' df = cartesian_to_xy(x, y)
+#' # directly draw in the viewport
+#' grid.points(x, y, default.units = "native")
+#' # check whether the converted xy are correct (should overlap to the previous points)
+#' spiral_points(df$x, df$y, pch = 16, gp = gpar(col = 2))
 cartesian_to_xy = function(x, y, track_index = current_track_index()) {
 
 	if(length(x) > 1) {

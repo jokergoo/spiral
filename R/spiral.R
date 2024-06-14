@@ -1,5 +1,6 @@
 ### a reference class for a spiral object
 
+#' @import methods
 create_spiral = function(start = 360, end = 360*5, xlim = c(0, 1), scale_by = "angle", 
 	flip = "none", reverse = FALSE) {
 
@@ -140,34 +141,33 @@ spiral = setRefClass("spiral",
 	)
 )
 
-# == title
-# Get current spiral object
-#
-# == details
-# The returned value is an object of ``spiral`` reference class. The following methods might be useful:
-#
-# -``$curve()``: It returns the radius for given angles (in radians).
-# -``$spiral_length()``: It returns the length of the spiral (from the origin) for a given angle (in radians), thus if you want to get the length of a spiral segment, 
-#     it will be ``spiral$spiral_length(theta2) - spiral$spiral_length(theta1)`` where ``spiral`` is the spiral object.
-#
-# Also there are the following meta-data for the current spiral (assume the object is named ``s``):
-#
-# -``s$xlim``: Data range.
-# -``s$xrange``: ``s$xlim[2] - s$xlim[1]``
-# -``s$theta_lim``: The corresponding range of theta
-# -``s$theta_range``: ``s$theta_lim[2] - s$theta_lim[1]``
-# -``s$spiral_length_lim``: The corresponding range of spiral length
-# -``s$spiral_length_range``: ``s$spiral_length_lim[2] - s$spiral_length_lim[1]``
-# -``s$max_radius``: Radius at ``s$theta_lim[2]``
-#
-# == value
-# A ``spiral`` object.
-#
-# == example
-# spiral_initialize()
-# s = current_spiral()
-# s$curve(2*pi*2)
-# s$spiral_length(2*pi*2)
+#' Get the current spiral object
+#'
+#' @details
+#' The returned value is an object of `spiral` reference class. The following methods might be useful (assume the object is named `s`):
+#'
+#' - `s$curve()`: It returns the radius for given angles (in radians).
+#' - `s$spiral_length()`: It returns the length of the spiral (from the origin) for a given angle (in radians), thus if you want to get the length of a spiral segment, 
+#'     it will be `s$spiral_length(theta2) - s$spiral_length(theta1)`.
+#'
+#' Also there are the following meta-data for the current spiral:
+#'
+#' - `s$xlim`: Data range.
+#' - `s$xrange`: `s$xlim[2] - s$xlim[1]`.
+#' - `s$theta_lim`: The corresponding range of theta.
+#' - `s$theta_range`: `s$theta_lim[2] - s$theta_lim[1]`.
+#' - `s$spiral_length_lim`: The corresponding range of spiral length.
+#' - `s$spiral_length_range`: `s$spiral_length_lim[2] - s$spiral_length_lim[1]`.
+#' - `s$max_radius`: Radius at `s$theta_lim[2]`.
+#'
+#' @return
+#' A `spiral` object.
+#' @export
+#' @examples
+#' spiral_initialize()
+#' s = current_spiral()
+#' s$curve(2*pi*2)
+#' s$spiral_length(2*pi*2)
 current_spiral = function() {
 	spiral = spiral_env$spiral
 

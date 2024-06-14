@@ -1,3 +1,5 @@
+
+#' @importFrom stats is.leaf
 construct_dend_segments = function(dend, gp = gpar()) {
 
     if(!requireNamespace("ComplexHeatmap")) {
@@ -113,32 +115,34 @@ construct_dend_segments = function(dend, gp = gpar()) {
 
 }
 
-# == title
-# Draw dendrogram
-#
-# == param
-# -dend A ``stats::dendrogram`` object.
-# -gp Graphics parameters of the dendrogram edges.
-# -track_index Index of the track. 
-#
-# == details
-# Note the dendrogram edges can be rendered with the `dendextend::dendextend` package.
-#
-# == value
-# Height of the dendrogram.
-#
-# == example
-# k = 500
-# dend = as.dendrogram(hclust(dist(runif(k))))
-# spiral_initialize(xlim = c(0, k), start = 360, end = 360*3)
-# spiral_track(height = 0.8, background_gp = gpar(fill = "#EEEEEE", col = NA))
-#
-# \donttest{
-# require(dendextend)
-# dend = color_branches(dend, k = 4)
-# spiral_initialize(xlim = c(0, k), start = 360, end = 360*3)
-# spiral_track(height = 0.8, background_gp = gpar(fill = "#EEEEEE", col = NA))
-# }
+#' Draw dendrogram
+#'
+#' @param dend A [`stats::dendrogram`] object.
+#' @param gp Graphical parameters of the dendrogram edges, mainly as a global setting.
+#' @param track_index Index of the track. 
+#'
+#' @details
+#' Graphical parameters for individual edges can be set via the `edgePar` attribute on each node in the dendrogram, see [`stats::dendrogram`]
+#' for how to set `edgePar`.
+#' 
+#' The dendrogram edges can also be rendered by [`dendextend::color_branches()`].
+#'
+#' @return Height of the dendrogram.
+#' @export
+#' @examples
+#' k = 500
+#' dend = as.dendrogram(hclust(dist(runif(k))))
+#' spiral_initialize(xlim = c(0, k), start = 360, end = 360*3)
+#' spiral_track(height = 0.8, background_gp = gpar(fill = "#EEEEEE", col = NA))
+#' spiral_dendrogram(dend)
+#'
+#' \donttest{
+#' require(dendextend)
+#' dend = color_branches(dend, k = 4)
+#' spiral_initialize(xlim = c(0, k), start = 360, end = 360*3)
+#' spiral_track(height = 0.8, background_gp = gpar(fill = "#EEEEEE", col = NA))
+#' spiral_dendrogram(dend)
+#' }
 spiral_dendrogram = function(dend, gp = gpar(), track_index = current_track_index()) {
 
     lt = construct_dend_segments(dend, gp)
@@ -160,6 +164,7 @@ spiral_dendrogram = function(dend, gp = gpar(), track_index = current_track_inde
 
 ############# for phylo object ############
 
+#' @importFrom circlize rand_color
 construct_phylo_segments = function(obj, group = NULL, group_col = NULL) {
     if(!inherits(obj, "phylo")) {
         stop_wrap("The input should be a 'phylo' object.")
@@ -275,28 +280,25 @@ construct_phylo_segments = function(obj, group = NULL, group_col = NULL) {
 
 }
 
-# == title
-# Draw phylogenetic tree
-#
-# == param
-# -obj A ``phylo`` object.
-# -gp Graphics parameters of the tree edges.
-# -log Whether the height of the tree should be log-transformed (log10(x + 1))?
-# -reverse Whether the tree should be reversed?
-# -group A categorical variable for splitting the tree.
-# -group_col A named vector which contains group colors.
-# -track_index Index of the track. 
-#
-# == value
-# Height of the phylogenetic tree.
-#
-# == example
-# require(ape)
-# data(bird.families)
-# n = length(bird.families$tip.label)
-# spiral_initialize(xlim = c(0, n), start = 360, end = 360*3)
-# spiral_track(height = 0.8)
-# spiral_phylo(bird.families)
+#' Draw phylogenetic tree
+#'
+#' @param obj A [`stats::dendrogram`] object.
+#' @param gp Graphical parameters of the tree edges, mainly as a global setting.
+#' @param log Whether the height of the tree to be log-transformed `log10(x + 1)`?
+#' @param reverse Whether the tree to be reversed?
+#' @param group A categorical variable for splitting the tree.
+#' @param group_col A named vector which contains group colors.
+#' @param track_index Index of the track. 
+#'
+#' @return Height of the phylogenetic tree.
+#' @export
+#' @examples
+#' require(ape)
+#' data(bird.families)
+#' n = length(bird.families$tip.label)
+#' spiral_initialize(xlim = c(0, n), start = 360, end = 360*3)
+#' spiral_track(height = 0.8)
+#' spiral_phylo(bird.families)
 spiral_phylo = function(obj, gp = gpar(), log = FALSE, reverse = FALSE, 
     group = NULL, group_col = NULL, track_index = current_track_index()) {
 
@@ -333,31 +335,25 @@ spiral_phylo = function(obj, gp = gpar(), log = FALSE, reverse = FALSE,
     invisible(ymax2)
 }
 
-# == title
-# Convert a phylo object to a dendrogram object
-#
-# == param
-# -obj A ``phylo`` object.
-# -log Whether the height of the phylogenetic tree should be log-transformed (log10(x + 1)).
-#
-# == details
-# The motivation is that phylogenetic tree may contain polytomies, which means at a certain node,
-# there are more than two children branches. Available tools that do the conversion only support binary trees.
-#
-# The returned ``dendrogram`` object is not in its standard format which means it can not be properly
-# drawn by the ``plot.dendrogram`` function. However, you can still apply dendextend::`dendextend::cutree` to the returned
-# ``dendrogram`` object with no problem and the dendrogram can be properly drawn with the ComplexHeatmap package.
-#
-# == value
-# A ``dendrogram`` object.
-#
-# == example
-# require(ape)
-# data(bird.families)
-# d = phylo_to_dendrogram(bird.families)
-#
-# require(ComplexHeatmap)
-# grid.dendrogram(d, test = TRUE)
+#' @details
+#' [`phylo_to_dendrogram()`] converts a `phylo` object to a `dendrogram` object.
+#' 
+#' The motivation is that phylogenetic tree may contain polytomies, which means at a certain node,
+#' there are more than two children branches. Available tools that do the conversion only support binary trees.
+#'
+#' The returned `dendrogram` object is not in its standard format which means it can not be properly
+#' drawn by the [`stats::plot.dendrogram()`] function. However, you can still apply [`stats::cutree()`] to the returned
+#' `dendrogram` object with no problem and the dendrogram can be properly drawn with the **ComplexHeatmap** package (see examples).
+#'
+#' @return A [`stats::dendrogram`] object.
+#' @rdname spiral_phylo
+#' @export
+#' @examples
+#' require(ape)
+#' data(bird.families)
+#' d = phylo_to_dendrogram(bird.families)
+#'
+#' ComplexHeatmap::grid.dendrogram(d, test = TRUE)
 phylo_to_dendrogram = function(obj, log = FALSE) {
     if(!inherits(obj, "phylo")) {
         stop_wrap("The input should be a 'phylo' object.")

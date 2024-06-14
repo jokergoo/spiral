@@ -1,13 +1,15 @@
 pandoc: 2.11.4
-pkgdown: 2.0.7
+pkgdown: 2.0.9
 pkgdown_sha: ~
 articles:
   annotate: annotate.html
   examples: examples.html
+  more_examples: more_examples.html
   special_data_type: special_data_type.html
-  spiralize: spiralize.html
+  spiral_covid: spiral_covid.html
   spiralize_git_commit: spiralize_git_commit.html
   spiralize_intro: spiralize_intro.html
+  spiralize: spiralize.html
   tree_of_life: tree_of_life.html
-last_built: 2024-02-27T09:44Z
+last_built: 2024-06-14T08:34Z
 
