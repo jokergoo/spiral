@@ -14,6 +14,10 @@ It has two major advantages for visualization:
 1. It is able to visualize data with very long axis with high resolution.
 2. It is efficient for time series data to reveal periodic patterns.
 
+## Documentation
+
+https://jokergoo.github.io/spiralize/
+
 ## Citation
 
 Zuguang Gu, et al., spiralize: an R package for Visualizing Data on Spirals, Bioinformatics, 2021. https://doi.org/10.1093/bioinformatics/btab778

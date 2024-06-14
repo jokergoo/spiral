@@ -65,6 +65,7 @@ spiral_track()
 spiral_horizon(df$Date, df$Mean, use_bar = TRUE)
 
 # with legend
+require(ComplexHeatmap)
 spiral_initialize_by_time(xlim = range(df$Date), unit_on_axis = "months", period = "year",
     period_per_loop = 20, polar_lines_by = 360/20, 
     vp_param = list(x = unit(0, "npc"), just = "left"))
