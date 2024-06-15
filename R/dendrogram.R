@@ -1,10 +1,7 @@
 
 #' @importFrom stats is.leaf
+#' @import ComplexHeatmap
 construct_dend_segments = function(dend, gp = gpar()) {
-
-    if(!requireNamespace("ComplexHeatmap")) {
-        stop("You need to install the 'ComplexHeatmap' package from Bioconductor.")
-    }
 
     if(is.null(attr(dend, "x"))) {
         dend = ComplexHeatmap::adjust_dend_by_x(dend)

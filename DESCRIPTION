@@ -2,7 +2,7 @@ Package: spiralize
 Type: Package
 Title: Visualize Data on Spirals
 Version: 1.1.0
-Date: 2024-06-11
+Date: 2024-06-14
 Authors@R: person("Zuguang", "Gu", email = "z.gu@dkfz.de", role = c("aut", "cre"),
                   comment = c('ORCID'="0000-0002-7395-8709"))
 Depends: R (>= 4.0.0), grid
@@ -13,9 +13,9 @@ Imports: GlobalOptions (>= 0.1.1),
          methods,
          grDevices,
          lubridate,
-         utils
-Suggests: ComplexHeatmap,
-          knitr, 
+         utils,
+         ComplexHeatmap
+Suggests: knitr, 
           rmarkdown,
           grImport,
           grImport2,
@@ -33,7 +33,7 @@ Description: It visualizes data along an Archimedean spiral <https://en.wikipedi
     It has two major advantages for visualization: 1. It is able to visualize data with very long axis with high 
     resolution. 2. It is efficient for time series data to reveal periodic patterns.
 VignetteBuilder: knitr
-URL: https://github.com/jokergoo/spiralize, https://jokergoo.github.io/spiralize
+URL: https://github.com/jokergoo/spiralize, https://jokergoo.github.io/spiralize/
 License: MIT + file LICENSE
 NeedsCompilation: no
 RoxygenNote: 7.3.1

@@ -1229,10 +1229,6 @@ split_vec_by_NA = function(x) {
 horizon_legend = function(lt, title = "", format = "%.2f",
 	template = "[{x1}, {x2}]", ...) {
 
-	if(!requireNamespace("ComplexHeatmap")) {
-        stop("You need to install the 'ComplexHeatmap' package from Bioconductor.")
-    }
-
 	interval = lt$interval
 	col_fun = lt$col_fun
 	
